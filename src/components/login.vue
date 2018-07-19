@@ -3,7 +3,7 @@
     <!--logo-->
     <img src="../assets/img/logo.png" alt="" class="loginLogo">
     <!--账号密码输入框-->
-    <div class="myInputBox clearfix">
+    <div class="myInputBox cl">
       <label for="username">Username</label>
       <div class="myInput">
         <input type="text" name="username" id="username" maxlength="10" v-model="username">
@@ -16,7 +16,9 @@
       </div>
       <span class="forgetPass">忘记密码</span>
     </div>
+    <!--登录按钮-->
     <span class="loginBtn">登录</span>
+    <!--注册按钮-->
     <p class="newUser">新用户？<span class="register">注册</span></p>
   </div>
 </template>

@@ -5,5 +5,5 @@ html {overflow-y: scroll;}
 
 .fl{float: left}
 .fr{float: right}
-.clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
-.clearfix { *zoom:1; }
+.cl:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+.cl{ *zoom:1; }
