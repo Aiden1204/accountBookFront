@@ -17,14 +17,16 @@
       <span class="forgetPass">忘记密码</span>
     </div>
     <!--登录按钮-->
-    <span class="loginBtn">登录</span>
+    <span class="loginBtn" @click="loginSubmit()">登录</span>
     <!--注册按钮-->
     <p class="newUser">新用户？<span class="register">注册</span></p>
   </div>
 </template>
 
 <script>
-    export default {
+  import axios from 'axios'
+
+  export default {
       name: "login",
       data() {
         return{
@@ -61,6 +63,22 @@
               this.password = "";
               break;
           }
+        },
+        loginSubmit:function () {
+          let self = this;
+          axios.get('http://localhost:3000/test', {
+
+          })
+            .then(function (response) {
+              console.log(response.data);
+              if(response.data.flag === "1"){
+                console.log("22222");
+                self.$router.push('mainPage');
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
       }
     }
