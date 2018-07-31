@@ -1,18 +1,18 @@
 <template>
   <div class="main">
     <!--logo-->
-    <img src="../assets/img/logo.png" alt="" class="loginLogo">
+    <img src="../../assets/img/logo.png" alt="" class="loginLogo">
     <!--账号密码输入框-->
     <div class="myInputBox cl">
       <label for="username">Username</label>
       <div class="myInput">
         <input type="text" name="username" id="username" maxlength="10" v-model="username">
-        <img src="../assets/img/x.png" :class="usernameIcon ? 'iconHide' : ''" @click="clearInput('username')"/>
+        <img src="../../assets/img/x.png" :class="usernameIcon ? 'iconHide' : ''" @click="clearInput('username')"/>
       </div>
       <label for="password">Password</label>
       <div class="myInput">
         <input type="password" name="password" id="password" maxlength="10" v-model="password">
-        <img src="../assets/img/x.png" :class="passwordIcon ? 'iconHide' : ''" @click="clearInput('password')"/>
+        <img src="../../assets/img/x.png" :class="passwordIcon ? 'iconHide' : ''" @click="clearInput('password')"/>
       </div>
       <span class="forgetPass">忘记密码</span>
     </div>
@@ -64,17 +64,18 @@
               break;
           }
         },
+        // 点击登录
         loginSubmit:function () {
           let self = this;
           axios.get('http://localhost:3000/test', {
 
           })
             .then(function (response) {
-              console.log(response.data);
-              if(response.data.flag === "1"){
-                console.log("22222");
-                self.$router.push('mainPage');
-              }
+              console.log(response);
+              // if(response.data.flag === "1"){
+              //   console.log("22222");
+              //   self.$router.push('mainPage');
+              // }
             })
             .catch(function (error) {
               console.log(error);
