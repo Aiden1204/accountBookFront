@@ -6,10 +6,18 @@ import accountIndex from '@/router/accountIndex.js'
 
 Vue.use(Router)
 
+// 首页重定向
+let index = [
+  {
+    path: '/',
+    redirect:'/account/login'
+  }
+];
 
-// 将路由的配置文件连接成一个数组
+
+// 将路由的配置文件连接成一个数组，新增路由配置文件时需要修改
 let routerArr = [];
-routerArr = routerArr.concat(accountIndex);
+routerArr = routerArr.concat(index,accountIndex);
 
 export default new Router({
   routes: routerArr

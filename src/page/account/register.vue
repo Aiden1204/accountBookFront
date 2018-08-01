@@ -14,12 +14,14 @@
         <input type="password" name="password" id="password" maxlength="10" v-model="password">
         <img src="../../assets/img/x.png" :class="passwordIcon ? 'iconHide' : ''" @click="clearInput('password')"/>
       </div>
-      <span class="forgetPass">忘记密码</span>
+      <label for="rePassword">RePassword</label>
+      <div class="myInput">
+        <input type="password" name="rePassword" id="rePassword" maxlength="10" v-model="rePassword">
+        <img src="../../assets/img/x.png" :class="rePasswordIcon ? 'iconHide' : ''" @click="clearInput('rePassword')"/>
+      </div>
     </div>
-    <!--登录按钮-->
-    <span class="loginBtn" @click="loginSubmit()">登录</span>
     <!--注册按钮-->
-    <p class="newUser">新用户？<span class="register" @click="goRegister()">注册</span></p>
+    <span class="loginBtn" @click="registerSubmit()">注册</span>
   </div>
 </template>
 
@@ -27,63 +29,65 @@
   import axios from 'axios'
 
   export default {
-      name: "login",
-      data() {
-        return{
-          username:"",
-          password:""
+    name: "register",
+    data() {
+      return{
+        username:"",
+        password:"",
+        rePassword:""
+      }
+    },
+    components:{
+
+    },
+    computed:{
+      // 判断用户名是否输入
+      usernameIcon:function() {
+        if(this.username != ""){
+          return false;
+        }else {
+          return true
         }
       },
-      computed:{
-        // 判断用户名是否输入
-        usernameIcon:function() {
-          if(this.username != ""){
-            return false;
-          }else {
-            return true
-          }
-        },
-        // 判断密码是否输入
-        passwordIcon:function() {
-          if(this.password != ""){
-            return false;
-          }else {
-            return true
-          }
+      // 判断密码是否输入
+      passwordIcon:function() {
+        if(this.password != ""){
+          return false;
+        }else {
+          return true
         }
       },
-      methods:{
-        // 清空账号密码输入框的内容
-        clearInput:function (value) {
-          switch (value){
-            case "username":
-              this.username = "";
-              break;
-            case "password":
-              this.password = "";
-              break;
-          }
-        },
-        // 点击登录
-        loginSubmit:function () {
-          let self = this;
-          axios.get('http://localhost:3000/test', {
-
-          })
-            .then(function (response) {
-              console.log(response);
-
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        },
-        // 点击注册
-        goRegister:function () {
-          this.$router.push('/account/register');
+      // 判断重复密码是否输入
+      rePasswordIcon:function() {
+        if(this.rePassword != ""){
+          return false;
+        }else {
+          return true
         }
       }
+    },
+    methods:{
+      // 清空输入框的内容
+      clearInput:function (value) {
+        switch (value){
+          case "username":
+            this.username = "";
+            break;
+          case "password":
+            this.password = "";
+            break;
+          case "rePassword":
+            this.rePassword = "";
+            break;
+        }
+      },
+      // 注册提交
+      registerSubmit:function () {
+        // this.$emit('waittingOn');
+        this.$emit('_alert','test message');
+      }
     }
+  }
 </script>
 
 <style scoped>
@@ -136,14 +140,6 @@
     right: 0;
   }
 
-  .forgetPass {
-    color: #777;
-    font-size: 0.24rem;
-    display: block;
-    float: right;
-    margin-top: 0.2rem;
-  }
-
   .iconHide {
     display: none;
   }
@@ -164,15 +160,5 @@
     box-shadow: -0.05rem 0.15rem 0.5rem #fd9a66;
   }
 
-  .newUser {
-    font-size: 0.24rem;
-    text-align: center;
-    color: #777;
-    margin-top: 0.6rem;
-  }
-
-  .register {
-    color: #fd5b5f;
-  }
 
 </style>
