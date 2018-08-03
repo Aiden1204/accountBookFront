@@ -37,19 +37,11 @@
       computed:{
         // 判断用户名是否输入
         usernameIcon:function() {
-          if(this.username != ""){
-            return false;
-          }else {
-            return true
-          }
+          return (this.username === "" || this.username === undefined || this.username === null);
         },
         // 判断密码是否输入
         passwordIcon:function() {
-          if(this.password != ""){
-            return false;
-          }else {
-            return true
-          }
+          return (this.password === "" || this.password === undefined || this.password === null);
         }
       },
       methods:{

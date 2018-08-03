@@ -25,7 +25,8 @@
         }
       },
       props:{
-        message:String
+        message:String,  //提示语
+        callback:Function  //点击确定时的回调函数，默认为空
       },
       methods:{
         // 打开提示框
@@ -35,6 +36,9 @@
         // 关闭提示框
         off:function () {
           this.ifShow = false;
+          if(typeof this.callback === "function"){
+            this.callback();
+          }
         }
       }
     }

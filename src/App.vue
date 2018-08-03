@@ -2,7 +2,7 @@
   <div id="app" >
     <router-view @waittingOn="waittingOn" @waittingOff="waittingOff" @_alert="_alert"/>
     <waitting ref="waitting"></waitting>
-    <localAlert ref="localAlert" :message="message"></localAlert>
+    <localAlert ref="localAlert" :message="message" :callback="callback"></localAlert>
   </div>
 </template>
 
@@ -14,7 +14,8 @@
     name: 'App',
     data() {
       return{
-       message:""
+       message:"",
+       callback:null
       }
     },
     components:{
@@ -30,8 +31,10 @@
       waittingOff:function () {
         this.$refs.waitting.off();
       },
-      _alert:function (message) {
-        this.message = message;
+      // 打开提示框
+      _alert:function (message,callback) {
+        this.message = message;  //提示语
+        this.callback = callback;  //点确定后的回调函数，默认为空
         this.$refs.localAlert.on();
       }
     }

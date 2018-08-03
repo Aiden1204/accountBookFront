@@ -43,27 +43,15 @@
     computed:{
       // 判断用户名是否输入
       usernameIcon:function() {
-        if(this.username != ""){
-          return false;
-        }else {
-          return true
-        }
+        return (this.username === "" || this.username === undefined || this.username === null);
       },
       // 判断密码是否输入
       passwordIcon:function() {
-        if(this.password != ""){
-          return false;
-        }else {
-          return true
-        }
+        return (this.password === "" || this.password === undefined || this.password === null);
       },
       // 判断重复密码是否输入
       rePasswordIcon:function() {
-        if(this.rePassword != ""){
-          return false;
-        }else {
-          return true
-        }
+        return (this.rePassword === "" || this.rePassword === undefined || this.rePassword === null);
       }
     },
     methods:{
@@ -84,7 +72,44 @@
       // 注册提交
       registerSubmit:function () {
         // this.$emit('waittingOn');
-        this.$emit('_alert','test message');
+        // this.$emit('_alert','test message',function () {
+        //   console.log("22222");
+        // });
+        // 字段验证
+        if(this.usernameIcon){
+          this.$emit('_alert','请输入用户名');
+        } else if(this.passwordIcon){
+          this.$emit('_alert','请输入密码');
+        } else if(this.rePasswordIcon){
+          this.$emit('_alert','请重复密码');
+        } else if(!(this.password === this.rePassword)){
+          this.$emit('_alert','两次密码不一致');
+        } else {
+          let self = this;
+          // 开始提交
+          // this.$emit('waittingOn');
+          axios.post('http://localhost:3000/users/register', {
+            params:{
+              username:this.username,
+              password:this.password,
+              rePassword:this.rePassword
+            }
+          })
+            .then(function (response) {
+              console.log(response);
+              if(response.data.returnCode === '999999'){
+                self.$emit('_alert',response.data.errMessage);
+                self.username = "";
+                self.password = "";
+                self.rePassword = "";
+              } else if(response.data.returnCode === '000000'){
+                self.$router.push('/account/login');
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
       }
     }
   }
