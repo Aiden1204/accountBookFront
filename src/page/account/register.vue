@@ -22,11 +22,14 @@
     </div>
     <!--注册按钮-->
     <span class="loginBtn" @click="registerSubmit()">注册</span>
+    <!--返回登陆-->
+    <p class="loginP">已有账号？<span class="login" @click="goLogin()">立即登录</span></p>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  import constantIP from '@/ipConfig/constantIP.js'
 
   export default {
     name: "register",
@@ -71,10 +74,6 @@
       },
       // 注册提交
       registerSubmit:function () {
-        // this.$emit('waittingOn');
-        // this.$emit('_alert','test message',function () {
-        //   console.log("22222");
-        // });
         // 字段验证
         if(this.usernameIcon){
           this.$emit('_alert','请输入用户名');
@@ -87,8 +86,8 @@
         } else {
           let self = this;
           // 开始提交
-          // this.$emit('waittingOn');
-          axios.post('http://localhost:3000/users/register', {
+          this.$emit('waittingOn');
+          axios.post(constantIP.register, {
             params:{
               username:this.username,
               password:this.password,
@@ -96,20 +95,26 @@
             }
           })
             .then(function (response) {
-              console.log(response);
+              self.$emit('waittingOff');
               if(response.data.returnCode === '999999'){
                 self.$emit('_alert',response.data.errMessage);
                 self.username = "";
                 self.password = "";
                 self.rePassword = "";
               } else if(response.data.returnCode === '000000'){
-                self.$router.push('/account/login');
+                self.$emit('_alert','注册成功',() => {
+                  self.$router.push('/account/login');
+                });
               }
             })
             .catch(function (error) {
               console.log(error);
             });
         }
+      },
+      // 返回登录
+      goLogin:function () {
+        this.$router.push('/account/login');
       }
     }
   }
@@ -152,7 +157,7 @@
     width: 4.75rem;
     border: none;
     outline:medium;
-    padding-bottom: 0.1rem;
+    margin-bottom: 0.1rem;
     font-size: 0.36rem;
   }
 
@@ -185,5 +190,14 @@
     box-shadow: -0.05rem 0.15rem 0.5rem #fd9a66;
   }
 
+  .loginP {
+    font-size: 0.24rem;
+    text-align: center;
+    color: #777;
+    margin-top: 0.6rem;
+  }
 
+  .login {
+    color: #fd5b5f;
+  }
 </style>
