@@ -29,6 +29,7 @@
 
 <script>
   import axios from 'axios'
+  import constantIP from '@/ipConfig/constantIP.js'
 
   export default {
       name: "login",
@@ -65,8 +66,11 @@
         // 点击登录
         loginSubmit:function () {
           let self = this;
-          axios.get('http://localhost:3000/test', {
-
+          axios.post(constantIP.login, {
+            params:{
+              username:this.username,
+              password:this.password
+            }
           })
             .then(function (response) {
               console.log(response);
