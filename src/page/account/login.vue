@@ -6,12 +6,16 @@
     <div class="myInputBox cl">
       <label for="username">Username</label>
       <div class="myInput">
-        <input type="text" name="username" id="username" maxlength="10" v-model="username">
+        <input type="text" name="username" id="username" maxlength="10" v-model="username" @focus="onFocus('usernameBottom')" @blur="outFocus('usernameBottom')">
+        <div class="underLine"></div>
+        <div class="underLineActive" :class="usernameBottom ? 'underLineActive2' : ''"></div>
         <img src="../../assets/img/x.png" :class="usernameIcon ? 'iconHide' : ''" @click="clearInput('username')"/>
       </div>
       <label for="password">Password</label>
       <div class="myInput">
-        <input type="password" name="password" id="password" maxlength="10" v-model="password">
+        <input type="password" name="password" id="password" maxlength="10" v-model="password" @focus="onFocus('passwordBottom')" @blur="outFocus('passwordBottom')">
+        <div class="underLine"></div>
+        <div class="underLineActive" :class="passwordBottom ? 'underLineActive2' : ''"></div>
         <img src="../../assets/img/x.png" :class="passwordIcon ? 'iconHide' : ''" @click="clearInput('password')"/>
       </div>
       <span class="forgetPass">忘记密码</span>
@@ -31,7 +35,9 @@
       data() {
         return{
           username:"",
-          password:""
+          password:"",
+          usernameBottom:false,
+          passwordBottom:false
         }
       },
       computed:{
@@ -73,12 +79,35 @@
         // 点击注册
         goRegister:function () {
           this.$router.push('/account/register');
+        },
+        // input聚焦时
+        onFocus:function (value) {
+          switch (value) {
+            case 'usernameBottom':
+              this.usernameBottom = true;
+              break;
+            case 'passwordBottom':
+              this.passwordBottom = true;
+              break;
+          }
+
+        },
+        // input丢失焦点时
+        outFocus:function (value) {
+          switch (value) {
+            case 'usernameBottom':
+              this.usernameBottom = false;
+              break;
+            case 'passwordBottom':
+              this.passwordBottom = false;
+              break;
+          }
         }
       }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .main {
     width: 100%;
     font-size: 0.36rem;
@@ -105,7 +134,6 @@
   .myInput {
     position: relative;
     width: 5.25rem;
-    border-bottom: 1px solid #ccc;
     margin-top: 0.2rem;
   }
 
@@ -115,7 +143,7 @@
     width: 4.75rem;
     border: none;
     outline:medium;
-    padding-bottom: 0.1rem;
+    margin-bottom: 0.1rem;
     font-size: 0.36rem;
   }
 
@@ -167,4 +195,27 @@
     color: #fd5b5f;
   }
 
+  .underLine {
+    width: 5.25rem;
+    position: absolute;
+    height: 2px;
+    background-color: #ccc;
+    bottom: 0;
+  }
+
+  .underLineActive {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #fd5b5f;
+    transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s; /* Firefox 4 */
+    -webkit-transition-duration: 0.3s; /* Safari 和 Chrome */
+    -o-transition-duration: 0.3s; /* Opera */
+  }
+
+  .underLineActive2 {
+    width: 5.25rem;
+  }
 </style>

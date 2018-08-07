@@ -6,17 +6,23 @@
     <div class="myInputBox cl">
       <label for="username">Username</label>
       <div class="myInput">
-        <input type="text" name="username" id="username" maxlength="10" v-model="username">
+        <input type="text" name="username" id="username" maxlength="10" v-model="username" @focus="onFocus('usernameBottom')" @blur="outFocus('usernameBottom')">
+        <div class="underLine"></div>
+        <div class="underLineActive" :class="usernameBottom ? 'underLineActive2' : ''"></div>
         <img src="../../assets/img/x.png" :class="usernameIcon ? 'iconHide' : ''" @click="clearInput('username')"/>
       </div>
       <label for="password">Password</label>
       <div class="myInput">
-        <input type="password" name="password" id="password" maxlength="10" v-model="password">
+        <input type="password" name="password" id="password" maxlength="10" v-model="password" @focus="onFocus('passwordBottom')" @blur="outFocus('passwordBottom')">
+        <div class="underLine"></div>
+        <div class="underLineActive" :class="passwordBottom ? 'underLineActive2' : ''"></div>
         <img src="../../assets/img/x.png" :class="passwordIcon ? 'iconHide' : ''" @click="clearInput('password')"/>
       </div>
       <label for="rePassword">RePassword</label>
       <div class="myInput">
-        <input type="password" name="rePassword" id="rePassword" maxlength="10" v-model="rePassword">
+        <input type="password" name="rePassword" id="rePassword" maxlength="10" v-model="rePassword" @focus="onFocus('rePasswordBottom')" @blur="outFocus('rePasswordBottom')">
+        <div class="underLine"></div>
+        <div class="underLineActive" :class="rePasswordBottom ? 'underLineActive2' : ''"></div>
         <img src="../../assets/img/x.png" :class="rePasswordIcon ? 'iconHide' : ''" @click="clearInput('rePassword')"/>
       </div>
     </div>
@@ -37,7 +43,10 @@
       return{
         username:"",
         password:"",
-        rePassword:""
+        rePassword:"",
+        usernameBottom:false,
+        passwordBottom:false,
+        rePasswordBottom:false
       }
     },
     components:{
@@ -115,12 +124,41 @@
       // 返回登录
       goLogin:function () {
         this.$router.push('/account/login');
+      },
+      // input聚焦时
+      onFocus:function (value) {
+        switch (value) {
+          case 'usernameBottom':
+            this.usernameBottom = true;
+            break;
+          case 'passwordBottom':
+            this.passwordBottom = true;
+            break;
+          case 'rePasswordBottom':
+            this.rePasswordBottom = true;
+            break;
+        }
+
+      },
+      // input丢失焦点时
+      outFocus:function (value) {
+        switch (value) {
+          case 'usernameBottom':
+            this.usernameBottom = false;
+            break;
+          case 'passwordBottom':
+            this.passwordBottom = false;
+            break;
+          case 'rePasswordBottom':
+            this.rePasswordBottom = false;
+            break;
+        }
       }
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .main {
     width: 100%;
     font-size: 0.36rem;
@@ -147,9 +185,9 @@
   .myInput {
     position: relative;
     width: 5.25rem;
-    border-bottom: 1px solid #ccc;
     margin-top: 0.2rem;
   }
+
 
   .myInput input {
     display: inline-block;
@@ -199,5 +237,29 @@
 
   .login {
     color: #fd5b5f;
+  }
+
+  .underLine {
+    width: 5.25rem;
+    position: absolute;
+    height: 2px;
+    background-color: #ccc;
+    bottom: 0;
+  }
+
+  .underLineActive {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #fd5b5f;
+    transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s; /* Firefox 4 */
+    -webkit-transition-duration: 0.3s; /* Safari 和 Chrome */
+    -o-transition-duration: 0.3s; /* Opera */
+  }
+
+  .underLineActive2 {
+    width: 5.25rem;
   }
 </style>
