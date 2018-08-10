@@ -34,7 +34,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import constantIP from '@/ipConfig/constantIP.js'
 
   export default {
@@ -96,11 +95,11 @@
           let self = this;
           // 开始提交
           this.$emit('waittingOn');
-          axios.post(constantIP.register, {
+          this.$axios.post(constantIP.register, {
             params:{
               username:this.username,
-              password:this.password,
-              rePassword:this.rePassword
+              password:this.$md5(this.password),
+              rePassword:this.$md5(this.rePassword)
             }
           })
             .then(function (response) {
@@ -117,7 +116,7 @@
               }
             })
             .catch(function (error) {
-              console.log(error);
+              self.$emit('_alert','网络通讯异常，请稍后再试');
             });
         }
       },

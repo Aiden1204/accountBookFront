@@ -5,6 +5,12 @@ import App from './App'
 // 路由注入
 import router from './router/route.js'
 
+import md5 from 'js-md5';  //md5加密
+Vue.prototype.$md5 = md5;
+
+import axios from 'axios'  //ajax请求
+Vue.prototype.$axios = axios;
+
 
 
 

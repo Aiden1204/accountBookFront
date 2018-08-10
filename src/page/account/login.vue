@@ -28,7 +28,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import constantIP from '@/ipConfig/constantIP.js'
 
   export default {
@@ -66,15 +65,19 @@
         // 点击登录
         loginSubmit:function () {
           let self = this;
-          axios.post(constantIP.login, {
+          this.$axios.post(constantIP.login, {
             params:{
               username:this.username,
-              password:this.password
+              password:this.$md5(this.password)
             }
           })
             .then(function (response) {
               console.log(response);
-
+              if(response.data.returnCode === '000000'){
+                self.$emit('_alert',"登录成功！");
+              } else if(response.data.returnCode === '999999'){
+                self.$emit('_alert',response.data.errMessage);
+              }
             })
             .catch(function (error) {
               console.log(error);
