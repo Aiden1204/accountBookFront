@@ -95,7 +95,7 @@
           let self = this;
           // 开始提交
           this.$emit('waittingOn');
-          this.$axios.post(constantIP.register, {
+          this.$cAxios.post(constantIP.register, {
             params:{
               username:this.username,
               password:this.$md5(this.password),

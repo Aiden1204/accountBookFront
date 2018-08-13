@@ -8,8 +8,8 @@ import router from './router/route.js'
 import md5 from 'js-md5';  //md5加密
 Vue.prototype.$md5 = md5;
 
-import axios from 'axios'  //ajax请求
-Vue.prototype.$axios = axios;
+import cAxios from './fun/cAxios'  //二次封装axios
+Vue.prototype.$cAxios = cAxios;
 
 
 

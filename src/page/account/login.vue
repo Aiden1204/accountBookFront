@@ -65,7 +65,7 @@
         // 点击登录
         loginSubmit:function () {
           let self = this;
-          this.$axios.post(constantIP.login, {
+          this.$cAxios.post(constantIP.login, {
             params:{
               username:this.username,
               password:this.$md5(this.password)
@@ -75,8 +75,6 @@
               console.log(response);
               if(response.data.returnCode === '000000'){
                 self.$emit('_alert',"登录成功！");
-              } else if(response.data.returnCode === '999999'){
-                self.$emit('_alert',response.data.errMessage);
               }
             })
             .catch(function (error) {

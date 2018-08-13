@@ -35,6 +35,7 @@
       _alert:function (message,callback) {
         this.message = message;  //提示语
         this.callback = callback;  //点确定后的回调函数，默认为空
+        console.log("123",this);
         this.$refs.localAlert.on();
       }
     }
