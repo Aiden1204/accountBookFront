@@ -28,7 +28,6 @@
 </template>
 
 <script>
-  import constantIP from '@/ipConfig/constantIP.js'
 
   export default {
       name: "login",
@@ -71,7 +70,7 @@
             self.$alert.on('请输入密码');
           } else {
             self.$waitting.on();
-            this.$cAxios.post(constantIP.login, {
+            this.$cAxios.post(self.$constantIP.login, {
               params:{
                 username:this.username,
                 password:this.$md5(this.password)

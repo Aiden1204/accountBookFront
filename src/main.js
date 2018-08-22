@@ -21,6 +21,10 @@ Vue.use(_waitting);
 import localAlert from './components/localAlertIndex.js';
 Vue.use(localAlert);
 
+// 定义接口位置
+import constantIP from './ipConfig/constantIP.js'
+Vue.prototype.$constantIP = constantIP;
+
 
 
 Vue.config.productionTip = false

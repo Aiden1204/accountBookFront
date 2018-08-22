@@ -34,7 +34,6 @@
 </template>
 
 <script>
-  import constantIP from '@/ipConfig/constantIP.js'
 
   export default {
     name: "register",
@@ -95,7 +94,7 @@
           let self = this;
           // 开始提交
           this.$waitting.on();
-          this.$cAxios.post(constantIP.register, {
+          this.$cAxios.post(self.$constantIP.register, {
             params:{
               username:this.username,
               password:this.$md5(this.password),
