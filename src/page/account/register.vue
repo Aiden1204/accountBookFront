@@ -84,17 +84,17 @@
       registerSubmit:function () {
         // 字段验证
         if(this.usernameIcon){
-          this.$emit('_alert','请输入用户名');
+          this.$alert.on('请输入用户名');
         } else if(this.passwordIcon){
-          this.$emit('_alert','请输入密码');
+          this.$alert.on('请输入密码');
         } else if(this.rePasswordIcon){
-          this.$emit('_alert','请重复密码');
+          this.$alert.on('请重复密码');
         } else if(!(this.password === this.rePassword)){
-          this.$emit('_alert','两次密码不一致');
+          this.$alert.on('两次密码不一致');
         } else {
           let self = this;
           // 开始提交
-          this.$emit('waittingOn');
+          this.$waitting.on();
           this.$cAxios.post(constantIP.register, {
             params:{
               username:this.username,
@@ -103,20 +103,21 @@
             }
           })
             .then(function (response) {
-              self.$emit('waittingOff');
+              self.$waitting.off();
               if(response.data.returnCode === '999999'){
-                self.$emit('_alert',response.data.errMessage);
+                // 报错时清空输入框
                 self.username = "";
                 self.password = "";
                 self.rePassword = "";
               } else if(response.data.returnCode === '000000'){
-                self.$emit('_alert','注册成功',() => {
+                self.$alert.on('注册成功',() => {
                   self.$router.push('/account/login');
                 });
               }
             })
             .catch(function (error) {
-              self.$emit('_alert','网络通讯异常，请稍后再试');
+              self.$waitting.off();
+              self.$alert.on('网络通讯异常，请稍后再试');
             });
         }
       },

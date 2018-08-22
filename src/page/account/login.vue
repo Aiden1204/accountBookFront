@@ -65,21 +65,28 @@
         // 点击登录
         loginSubmit:function () {
           let self = this;
-          this.$cAxios.post(constantIP.login, {
-            params:{
-              username:this.username,
-              password:this.$md5(this.password)
-            }
-          })
-            .then(function (response) {
-              console.log(response);
-              if(response.data.returnCode === '000000'){
-                self.$emit('_alert',"登录成功！");
+          if(self.usernameIcon){
+            self.$alert.on('请输入用户名');
+          } else if(self.passwordIcon){
+            self.$alert.on('请输入密码');
+          } else {
+            self.$waitting.on();
+            this.$cAxios.post(constantIP.login, {
+              params:{
+                username:this.username,
+                password:this.$md5(this.password)
               }
-            })
-            .catch(function (error) {
+            }).then(function (response) {
+              console.log(response);
+              self.$waitting.off();
+              if(response.data.returnCode === '000000'){
+                self.$alert.on('登录成功');
+              }
+            }).catch(function (error) {
+              self.$waitting.off();
               console.log(error);
             });
+          }
         },
         // 点击注册
         goRegister:function () {

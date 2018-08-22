@@ -21,24 +21,19 @@
       name: "localAlert",
       data() {
         return{
-          ifShow:false  //控制提示框是否显示
+          ifShow:false,  //控制提示框是否显示
+          message:null,  //提示语
+          callback:null  //点击确定时的回调函数，默认为空
         }
       },
-      props:{
-        message:String,  //提示语
-        callback:Function  //点击确定时的回调函数，默认为空
-      },
       methods:{
-        // 打开提示框
-        on:function () {
-          this.ifShow = true;
-        },
         // 关闭提示框
         off:function () {
           this.ifShow = false;
           if(typeof this.callback === "function"){
             this.callback();
           }
+          this.callback = null;
         }
       }
     }
