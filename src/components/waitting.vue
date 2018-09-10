@@ -27,22 +27,26 @@
 </template>
 
 <script>
+  import store from '../store/vuexIndex.js'
     export default {
       name: "waitting",
       data() {
         return{
-          ifShow:false  //控制遮罩层是否显示
+
+        }
+      },
+      computed:{
+        ifShow:{
+          get:function () {
+            return store.state.waittingShow;
+          },
+          set:function (newValue) {
+            store.state.waittingShow = newValue;
+          }
         }
       },
       methods:{
-        // 打开遮罩层
-        on:function () {
-          this.ifShow = true;
-        },
-        // 关闭遮罩层
-        off:function () {
-          this.ifShow = false;
-        }
+
       }
     }
 </script>

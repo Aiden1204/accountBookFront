@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <p>{{test}}</p>
     <div class="bottomBar">
       <div class="lBtn">
 
@@ -10,11 +12,24 @@
 
       </div>
     </div>
+  </div>
+
 </template>
 
 <script>
     export default {
-        name: "mainPage"
+      name: "mainPage",
+      data(){
+        return{
+
+        }
+      },
+      computed:{
+        test(){
+          // return this.$store.state.count;
+          return 123;
+        }
+      }
     }
 </script>
 

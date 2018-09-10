@@ -1,5 +1,5 @@
 import waitting from './waitting.vue'
-
+import store from '../store/vuexIndex.js'
 let $vm;
 
 export default {
@@ -18,10 +18,12 @@ export default {
 
     let _waitting = {
       on() {
-        $vm.ifShow = true;
+        // $vm.ifShow = true;
+        store.state.waittingShow = true;
       },
       off() {
-        $vm.ifShow = false;
+        // $vm.ifShow = false;
+        store.state.waittingShow = false;
       }
     };
 

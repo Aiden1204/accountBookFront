@@ -2,8 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+
 // 路由注入
 import router from './router/route.js'
+
+// Vuex注入
+import store from './store/vuexIndex.js'
+
+
 
 //md5加密
 import md5 from 'js-md5';
@@ -33,6 +39,7 @@ Vue.config.productionTip = false
 let myApp = new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

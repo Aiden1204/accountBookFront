@@ -1,7 +1,6 @@
 import axios from 'axios'
 import _this from '../main.js'
 
-
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么

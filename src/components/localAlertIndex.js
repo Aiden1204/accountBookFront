@@ -1,5 +1,5 @@
 import localAlert from './localAlert.vue'
-
+import store from '../store/vuexIndex.js'
 let $vm;
 
 export default {
@@ -18,7 +18,8 @@ export default {
 
     let _alert = {
       on(text,callback) {
-        $vm.ifShow = true;
+        // $vm.ifShow = true;
+        store.state.localAlertShow = true;
         $vm.message = text;
         $vm.callback = callback;
       }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store/vuexIndex.js'
 
 // 引入路由的配置文件
 import accountIndex from '@/router/accountIndex.js'
@@ -27,7 +28,8 @@ let vueRouter = new Router({
 // 路由守卫
 // 页面跳转前
 vueRouter.beforeEach((to, from, next) => {
-  console.log('跳转前');
+  // 跳转前确保关闭遮罩层和提示框
+  store.state.localAlertShow = false;
   next();
 });
 

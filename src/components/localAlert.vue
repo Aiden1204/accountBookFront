@@ -17,13 +17,24 @@
 </template>
 
 <script>
+  import store from '../store/vuexIndex.js'
     export default {
       name: "localAlert",
       data() {
         return{
-          ifShow:false,  //控制提示框是否显示
+          // ifShow:false,  //控制提示框是否显示
           message:null,  //提示语
           callback:null  //点击确定时的回调函数，默认为空
+        }
+      },
+      computed:{
+        ifShow:{
+          get:function () {
+            return store.state.localAlertShow;
+          },
+          set:function (newValue) {
+            store.state.localAlertShow = newValue;
+          }
         }
       },
       methods:{
