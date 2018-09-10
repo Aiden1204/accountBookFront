@@ -20,6 +20,15 @@ let index = [
 let routerArr = [];
 routerArr = routerArr.concat(index,accountIndex,mainPageIndex);
 
-export default new Router({
+let vueRouter = new Router({
   routes: routerArr
-})
+});
+
+// 路由守卫
+// 页面跳转前
+vueRouter.beforeEach((to, from, next) => {
+  console.log('跳转前');
+  next();
+});
+
+export default vueRouter;
