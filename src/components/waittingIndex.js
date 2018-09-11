@@ -18,12 +18,11 @@ export default {
 
     let _waitting = {
       on() {
-        // $vm.ifShow = true;
-        store.state.waittingShow = true;
+        store.commit('waittingOn');
       },
       off() {
-        // $vm.ifShow = false;
         store.state.waittingShow = false;
+        store.commit('waittingOff');
       }
     };
 

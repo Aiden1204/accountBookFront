@@ -18,8 +18,7 @@ export default {
 
     let _alert = {
       on(text,callback) {
-        // $vm.ifShow = true;
-        store.state.localAlertShow = true;
+        store.commit('localAlertOn');
         $vm.message = text;
         $vm.callback = callback;
       }

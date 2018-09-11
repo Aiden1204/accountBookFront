@@ -29,7 +29,8 @@ let vueRouter = new Router({
 // 页面跳转前
 vueRouter.beforeEach((to, from, next) => {
   // 跳转前确保关闭遮罩层和提示框
-  store.state.localAlertShow = false;
+  store.commit('localAlertOff');
+  store.commit('waittingOff');
   next();
 });
 
