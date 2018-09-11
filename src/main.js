@@ -9,8 +9,6 @@ import router from './router/route.js'
 // Vuex注入
 import store from './store/vuexIndex.js'
 
-
-
 //md5加密
 import md5 from 'js-md5';
 Vue.prototype.$md5 = md5;
@@ -20,11 +18,11 @@ import cAxios from './fun/cAxios'
 Vue.prototype.$cAxios = cAxios;
 
 // 自定义公共waitting层
-import _waitting from './components/waittingIndex.js';
+import _waitting from './plugin/waittingIndex.js';
 Vue.use(_waitting);
 
 // 自定义公共alert框
-import localAlert from './components/localAlertIndex.js';
+import localAlert from './plugin/localAlertIndex.js';
 Vue.use(localAlert);
 
 // 定义接口位置

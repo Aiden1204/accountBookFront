@@ -80,7 +80,7 @@
               self.$waitting.off();
               if(response.data.returnCode === '000000'){
                 // self.$alert.on('登录成功');
-                self.$router.push('/mainPage/mainPage');
+                self.$router.push('/mainPage/wallet');
               }
             }).catch(function (error) {
               self.$waitting.off();
