@@ -18,12 +18,12 @@
         <div class="underLineActive" :class="passwordBottom ? 'underLineActive2' : ''"></div>
         <img src="../../assets/img/x.png" :class="passwordIcon ? 'iconHide' : ''" @click="clearInput('password')"/>
       </div>
-      <span class="forgetPass">忘记密码</span>
+      <span class="forgetPass noSelect">忘记密码</span>
     </div>
     <!--登录按钮-->
-    <span class="loginBtn" @click="loginSubmit()">登录</span>
+    <span class="loginBtn noSelect" @click="loginSubmit()">登录</span>
     <!--注册按钮-->
-    <p class="newUser">新用户？<span class="register" @click="goRegister()">注册</span></p>
+    <p class="newUser noSelect">新用户？<span class="register" @click="goRegister()">注册</span></p>
   </div>
 </template>
 
@@ -230,4 +230,5 @@
   .underLineActive2 {
     width: 5.25rem;
   }
+
 </style>

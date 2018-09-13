@@ -20,6 +20,7 @@ axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
   // 对响应错误做点什么
+  _this.$alert.on("网络通讯异常，请稍后再试");
   return Promise.reject(error);
 });
 

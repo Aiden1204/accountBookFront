@@ -149,7 +149,7 @@
 
   .addBtnShadow {
     position: fixed;
-    bottom: 0.1rem;
+    bottom: 0.15rem;
     width: 1.4rem;
     height: 1.4rem;
     border-radius: 50%;

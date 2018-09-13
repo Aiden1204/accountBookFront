@@ -27,9 +27,9 @@
       </div>
     </div>
     <!--注册按钮-->
-    <span class="loginBtn" @click="registerSubmit()">注册</span>
+    <span class="loginBtn noSelect" @click="registerSubmit()">注册</span>
     <!--返回登陆-->
-    <p class="loginP">已有账号？<span class="login" @click="goLogin()">立即登录</span></p>
+    <p class="loginP noSelect">已有账号？<span class="login" @click="goLogin()">立即登录</span></p>
   </div>
 </template>
 
