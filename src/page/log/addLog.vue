@@ -33,59 +33,61 @@
     <div class="bottom">
       <p class="remarks">添加备注信息</p>
       <p class="money">
-        <span class="">0</span>
+        <span class="">{{keyValue}}</span>
         <span class="imgBox">
-          <img src="@/assets/img/x.png" alt="">
+          <img src="@/assets/img/x.png" alt="" v-if="this.clBtnShow" @click="clearAll()">
         </span>
       </p>
       <div class="keyboard">
         <div class="fg3">
           <div class="leftLine">
-            <div class="keyItem fg1 nbl">
+            <div class="keyItem fg1 nbl" @click="clickKey('1')">
               <div>1</div>
             </div>
-            <div class="keyItem fg1">
+            <div class="keyItem fg1" @click="clickKey('2')">
               <div>2</div>
             </div>
-            <div class="keyItem fg1">
+            <div class="keyItem fg1" @click="clickKey('3')">
               <div>3</div>
             </div>
           </div>
           <div class="leftLine">
-            <div class="keyItem fg1 nbl">
+            <div class="keyItem fg1 nbl" @click="clickKey('4')">
               <div>4</div>
             </div>
-            <div class="keyItem fg1">
+            <div class="keyItem fg1" @click="clickKey('5')">
               <div>5</div>
             </div>
-            <div class="keyItem fg1">
+            <div class="keyItem fg1" @click="clickKey('6')">
               <div>6</div>
             </div>
           </div>
           <div class="leftLine">
-            <div class="keyItem fg1 nbl">
+            <div class="keyItem fg1 nbl" @click="clickKey('7')">
               <div>7</div>
             </div>
-            <div class="keyItem fg1">
+            <div class="keyItem fg1" @click="clickKey('8')">
               <div>8</div>
             </div>
-            <div class="keyItem fg1">
+            <div class="keyItem fg1" @click="clickKey('9')">
               <div>9</div>
             </div>
           </div>
           <div class="leftLine">
-            <div class="keyItem fg1 nbl">
+            <div class="keyItem fg1 nbl"  @click="clickKey('.')">
               <div>.</div>
             </div>
-            <div class="keyItem fg2">
+            <div class="keyItem fg2"  @click="clickKey('0')">
               <div>0</div>
             </div>
           </div>
         </div>
         <div class="fg1 right">
-            <div class="keyItem nbr back">
+            <!--back按钮-->
+            <div class="keyItem nbr back" @click="backKey()">
               <img src="@/assets/img/back.svg" alt="">
             </div>
+            <!--确定按钮-->
             <div class="keyItem nbr sure">
               <div>确定</div>
             </div>
@@ -102,7 +104,8 @@
       data(){
         return{
           status:"支出", //提交的是“支出”或“收入”
-          categoryIndex:-1,// 当前页面选择的支出类别
+          categoryIndex:-1, //当前页面选择的支出类别
+          keyValue:"0", //每次数字键盘键入的值
           // 后台返回的支出类别
           categoryList:[
             {
@@ -137,12 +140,12 @@
         }
       },
       computed:{
+        // 判断状态是“支出”或“收入”
         textAcive:function () {
-          if(this.status === "支出"){
-            return true;
-          } else {
-            return false;
-          }
+          return(this.status === "支出");
+        },
+        clBtnShow:function () {
+          return(!(this.keyValue === '0'));
         }
       },
       methods:{
@@ -158,6 +161,37 @@
         chooseCategory:function (index) {
           this.categoryIndex = index;
           console.log(index);
+        },
+        // 点击数字键盘
+        clickKey:function (keyValue) {
+          this.keyValue += keyValue;
+          // 键入时判断，头部为0且第二位不为小数点时，消除头部的0
+          if(this.keyValue.length === 2 && this.keyValue.slice(0,1) === '0' && !(keyValue === '.')){
+              this.keyValue = this.keyValue.slice(1)
+          }
+          // 键入时判断，字段是否含有小数点
+          if(this.keyValue.indexOf('.') > -1){
+            // 键入时判断，小数点数量是否超过两位
+            if(this.keyValue.split('.').length > 2){
+              this.backKey();
+            }
+            // 键入时判断，小数点后的数字是否超过两位
+            if(this.keyValue.split('.')[1].length > 2){
+              this.backKey();
+            }
+          }
+          console.log(this.keyValue);
+        },
+        // 数字键盘回退键
+        backKey:function () {
+          this.keyValue = this.keyValue.slice(0,-1);
+          if(this.keyValue.length < 1){
+            this.keyValue = '0';
+          }
+        },
+        // 数字键盘清空
+        clearAll:function () {
+          this.keyValue = '0';
         }
       }
     }
