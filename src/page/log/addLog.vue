@@ -5,13 +5,13 @@
     <!--头部交互文字-->
     <div class="topTopic">
       <div class="cl">
-        <div class="fl topicItem" @click="changeStatus('支出')">
+        <div class="fl topicItem noSelect" @click="changeStatus('支出')">
           <span :class="{active:textAcive}">支出</span>
         </div>
-        <div class="fl topicItem" @click="changeStatus('收入')">
+        <div class="fl topicItem noSelect" @click="changeStatus('收入')">
           <span :class="{active:!textAcive}">收入</span>
         </div>
-        <div class="fr topicItem" @click="goBack()">
+        <div class="fr topicItem noSelect" @click="goBack()">
           <span>取消</span>
         </div>
       </div>
@@ -180,6 +180,10 @@
               this.backKey();
             }
           }
+          // 键入时判断，过长不予输入
+          if(this.keyValue.length > 12){
+            this.backKey();
+          }
           console.log(this.keyValue);
         },
         // 数字键盘回退键
@@ -200,6 +204,8 @@
 <style scoped lang="scss">
   .all{
     position: relative;
+    height: 10rem;
+    overflow: hidden;
   }
 
   .topBg {
@@ -251,11 +257,11 @@
     position: relative;
     z-index: 1001;
     width: 6.3rem;
-    margin: 0.5rem auto 0 auto;
+    margin: 0.3rem auto 0 auto;
     background-color: #fff;
     box-shadow: 3px 3px 12px #c1c5d0;
     border-radius: 0.1rem;
-    padding: 0.3rem;
+    padding: 0.2rem;
     h2 {
       font-size: 0.32rem;
       font-weight: normal;
@@ -318,6 +324,7 @@
       justify-content: flex-end;
       align-items: center;
       border-top:1px solid #b6b6b6;
+      background-color: #fff;
       span {
         display: inline-block;
       }
@@ -373,7 +380,7 @@
       .leftLine {
         display: flex;
         .keyItem {
-          height: 1rem;
+          height: 0.9rem;
         }
       }
       .right {
