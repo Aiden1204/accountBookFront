@@ -1,6 +1,8 @@
 <template>
   <div class="all">
+    <!--头部背景色块-->
     <div class="topBg"></div>
+    <!--头部交互文字-->
     <div class="topTopic">
       <div class="cl">
         <div class="fl topicItem" @click="changeStatus('支出')">
@@ -15,16 +17,83 @@
       </div>
       <div class="topicUnder" :class="[textAcive?'moveLeft':'moveRight']"></div>
     </div>
+    <!--类别选择-->
     <div class="category">
       <h2>类别</h2>
       <div class="categoryContent">
         <div class="categoryItem" v-for="(item,index) in categoryList" @click="chooseCategory(index)">
-          <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==categoryIndex}">
+          <div class="imgBox">
+            <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==categoryIndex}">
+          </div>
           <h3 :class="{choiceText:index==categoryIndex}">{{item.title}}</h3>
         </div>
       </div>
     </div>
+    <!--底部键盘部分-->
+    <div class="bottom">
+      <p class="remarks">添加备注信息</p>
+      <p class="money">
+        <span class="">0</span>
+        <span class="imgBox">
+          <img src="@/assets/img/x.png" alt="">
+        </span>
+      </p>
+      <div class="keyboard">
+        <div class="fg3">
+          <div class="leftLine">
+            <div class="keyItem fg1 nbl">
+              <div>1</div>
+            </div>
+            <div class="keyItem fg1">
+              <div>2</div>
+            </div>
+            <div class="keyItem fg1">
+              <div>3</div>
+            </div>
+          </div>
+          <div class="leftLine">
+            <div class="keyItem fg1 nbl">
+              <div>4</div>
+            </div>
+            <div class="keyItem fg1">
+              <div>5</div>
+            </div>
+            <div class="keyItem fg1">
+              <div>6</div>
+            </div>
+          </div>
+          <div class="leftLine">
+            <div class="keyItem fg1 nbl">
+              <div>7</div>
+            </div>
+            <div class="keyItem fg1">
+              <div>8</div>
+            </div>
+            <div class="keyItem fg1">
+              <div>9</div>
+            </div>
+          </div>
+          <div class="leftLine">
+            <div class="keyItem fg1 nbl">
+              <div>.</div>
+            </div>
+            <div class="keyItem fg2">
+              <div>0</div>
+            </div>
+          </div>
+        </div>
+        <div class="fg1 right">
+            <div class="keyItem nbr back">
+              <img src="@/assets/img/back.svg" alt="">
+            </div>
+            <div class="keyItem nbr sure">
+              <div>确定</div>
+            </div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -148,7 +217,6 @@
     position: relative;
     z-index: 1001;
     width: 6.3rem;
-    /*height: 3rem;*/
     margin: 0.5rem auto 0 auto;
     background-color: #fff;
     box-shadow: 3px 3px 12px #c1c5d0;
@@ -164,7 +232,7 @@
       justify-content: flex-start;
       flex-wrap:wrap;
       .choiceCircle {
-        border: 1px solid #fd7469;
+        border: 0.05rem solid #fd7469;
       }
       .choiceText {
         color: #fd7469
@@ -172,13 +240,23 @@
     }
     .categoryItem {
       width: 25%;
+      height: 1.4rem;
       margin: 0.1rem 0 0.1rem 0;
-      img {
+      .imgBox {
         width: 0.8rem;
-        height: 0.8rem;
+        height: 0.9rem;
         position: relative;
         left: 50%;
         transform: translateX(-50%);
+        padding: 5px;
+      }
+      img {
+        width: 0.8rem;
+        height: 0.8rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
         border: 1px solid #b6b6b6;
         border-radius: 50%;
         padding: 5px;
@@ -189,6 +267,104 @@
         color: #b6b6b6;
         text-align: center;
         margin-top: 0.05rem;
+      }
+    }
+  }
+
+  .bottom{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    .remarks {
+      color: #b6b6b6;
+      padding: 0.1rem;
+    }
+    .money {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      border-top:1px solid #b6b6b6;
+      span {
+        display: inline-block;
+      }
+      span:first-child {
+        font-size: 0.55rem;
+      }
+      .imgBox {
+        width: 0.5rem;
+        height: 0.5rem;
+        position: relative;
+      }
+      img {
+        display: inline-block;
+        width: 0.3rem;
+        height: 0.3rem;
+        position: absolute;
+        right: 50%;
+        top: 50%;
+        transform: translate(50%,-50%);
+      }
+    }
+    .keyboard {
+      display: flex;
+      .keyItem {
+        background-color: #fff;
+        border-top:1px solid #b6b6b6;
+        border-left:1px solid #b6b6b6;
+        box-sizing: border-box;
+        position: relative;
+        div {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%,-50%);
+          font-size: 0.48rem;
+        }
+      }
+      .fg1 {
+        flex-grow: 1;
+      }
+      .fg2 {
+        flex-grow: 2;
+      }
+      .fg3 {
+        flex-grow: 3;
+      }
+      .nbl {
+        border-left: none;
+      }
+      .nbt {
+        border-top: none;
+      }
+      .leftLine {
+        display: flex;
+        .keyItem {
+          height: 1rem;
+        }
+      }
+      .right {
+        .keyItem{
+          height: 50%;
+        }
+      }
+      .sure {
+        background: linear-gradient(to right, #fd8a65 , #fd695e);
+        div{
+          width: 1.3rem;
+          text-align: center;
+          color: #fff;
+        }
+      }
+      .back {
+        img{
+          position: absolute;
+          display: block;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%,-50%);
+          width: 0.75rem;
+          height: 0.75rem;
+        }
       }
     }
   }
