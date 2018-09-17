@@ -1,88 +1,89 @@
 <template>
-  <div class="all">
-    <!--头部背景色块-->
-    <div class="topBg"></div>
-    <!--头部交互文字-->
-    <div class="topTopic">
-      <div class="cl">
-        <div class="fl topicItem noSelect" @click="changeStatus('支出')">
-          <span :class="{active:textAcive}">支出</span>
-        </div>
-        <div class="fl topicItem noSelect" @click="changeStatus('收入')">
-          <span :class="{active:!textAcive}">收入</span>
-        </div>
-        <div class="fr topicItem noSelect" @click="goBack()">
-          <span>取消</span>
-        </div>
-      </div>
-      <div class="topicUnder" :class="[textAcive?'moveLeft':'moveRight']"></div>
-    </div>
-    <!--类别选择-->
-    <div class="category">
-      <h2>类别</h2>
-      <div class="categoryContent">
-        <div class="categoryItem" v-for="(item,index) in categoryList" @click="chooseCategory(index)">
-          <div class="imgBox">
-            <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==categoryIndex}">
+  <!--<transition name="">-->
+    <div class="all">
+      <!--头部背景色块-->
+      <div class="topBg"></div>
+      <!--头部交互文字-->
+      <div class="topTopic">
+        <div class="cl">
+          <div class="fl topicItem noSelect" @click="changeStatus('支出')">
+            <span :class="{active:textAcive}">支出</span>
           </div>
-          <h3 :class="{choiceText:index==categoryIndex}">{{item.title}}</h3>
+          <div class="fl topicItem noSelect" @click="changeStatus('收入')">
+            <span :class="{active:!textAcive}">收入</span>
+          </div>
+          <div class="fr topicItem noSelect" @click="goBack()">
+            <span>取消</span>
+          </div>
+        </div>
+        <div class="topicUnder" :class="[textAcive?'moveLeft':'moveRight']"></div>
+      </div>
+      <!--类别选择-->
+      <div class="category">
+        <h2>类别</h2>
+        <div class="categoryContent">
+          <div class="categoryItem" v-for="(item,index) in categoryList" @click="chooseCategory(index)">
+            <div class="imgBox">
+              <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==categoryIndex}">
+            </div>
+            <h3 :class="{choiceText:index==categoryIndex}">{{item.title}}</h3>
+          </div>
         </div>
       </div>
-    </div>
-    <!--底部键盘部分-->
-    <div class="bottom">
-      <p class="remarks">添加备注信息</p>
-      <p class="money">
-        <span class="">{{keyValue}}</span>
-        <span class="imgBox">
+      <!--底部键盘部分-->
+      <div class="bottom">
+        <p class="remarks" @click="goRemarks()">{{remarks}}</p>
+        <p class="money">
+          <span class="">{{keyValue}}</span>
+          <span class="imgBox">
           <img src="@/assets/img/x.png" alt="" v-if="this.clBtnShow" @click="clearAll()">
         </span>
-      </p>
-      <div class="keyboard">
-        <div class="fg3">
-          <div class="leftLine">
-            <div class="keyItem fg1 nbl" @click="clickKey('1')">
-              <div>1</div>
+        </p>
+        <div class="keyboard">
+          <div class="fg3">
+            <div class="leftLine">
+              <div class="keyItem fg1 nbl" @click="clickKey('1')">
+                <div>1</div>
+              </div>
+              <div class="keyItem fg1" @click="clickKey('2')">
+                <div>2</div>
+              </div>
+              <div class="keyItem fg1" @click="clickKey('3')">
+                <div>3</div>
+              </div>
             </div>
-            <div class="keyItem fg1" @click="clickKey('2')">
-              <div>2</div>
+            <div class="leftLine">
+              <div class="keyItem fg1 nbl" @click="clickKey('4')">
+                <div>4</div>
+              </div>
+              <div class="keyItem fg1" @click="clickKey('5')">
+                <div>5</div>
+              </div>
+              <div class="keyItem fg1" @click="clickKey('6')">
+                <div>6</div>
+              </div>
             </div>
-            <div class="keyItem fg1" @click="clickKey('3')">
-              <div>3</div>
+            <div class="leftLine">
+              <div class="keyItem fg1 nbl" @click="clickKey('7')">
+                <div>7</div>
+              </div>
+              <div class="keyItem fg1" @click="clickKey('8')">
+                <div>8</div>
+              </div>
+              <div class="keyItem fg1" @click="clickKey('9')">
+                <div>9</div>
+              </div>
+            </div>
+            <div class="leftLine">
+              <div class="keyItem fg1 nbl"  @click="clickKey('.')">
+                <div>.</div>
+              </div>
+              <div class="keyItem fg2"  @click="clickKey('0')">
+                <div>0</div>
+              </div>
             </div>
           </div>
-          <div class="leftLine">
-            <div class="keyItem fg1 nbl" @click="clickKey('4')">
-              <div>4</div>
-            </div>
-            <div class="keyItem fg1" @click="clickKey('5')">
-              <div>5</div>
-            </div>
-            <div class="keyItem fg1" @click="clickKey('6')">
-              <div>6</div>
-            </div>
-          </div>
-          <div class="leftLine">
-            <div class="keyItem fg1 nbl" @click="clickKey('7')">
-              <div>7</div>
-            </div>
-            <div class="keyItem fg1" @click="clickKey('8')">
-              <div>8</div>
-            </div>
-            <div class="keyItem fg1" @click="clickKey('9')">
-              <div>9</div>
-            </div>
-          </div>
-          <div class="leftLine">
-            <div class="keyItem fg1 nbl"  @click="clickKey('.')">
-              <div>.</div>
-            </div>
-            <div class="keyItem fg2"  @click="clickKey('0')">
-              <div>0</div>
-            </div>
-          </div>
-        </div>
-        <div class="fg1 right">
+          <div class="fg1 right">
             <!--back按钮-->
             <div class="keyItem nbr back" @click="backKey()">
               <img src="@/assets/img/back.svg" alt="">
@@ -91,10 +92,12 @@
             <div class="keyItem nbr sure">
               <div>确定</div>
             </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <!--</transition>-->
+
 
 </template>
 
@@ -106,6 +109,7 @@
           status:"支出", //提交的是“支出”或“收入”
           categoryIndex:-1, //当前页面选择的支出类别
           keyValue:"0", //每次数字键盘键入的值
+          remarks:"添加备注信息", //备注栏的内容
           // 后台返回的支出类别
           categoryList:[
             {
@@ -153,9 +157,9 @@
         changeStatus:function (status) {
           this.status = status;
         },
-        // 返回主页
+        // 返回上一页
         goBack:function () {
-          this.$router.push('/mainPage/wallet');
+          this.$router.go(-1);
         },
         // 选择支出类别
         chooseCategory:function (index) {
@@ -196,6 +200,20 @@
         // 数字键盘清空
         clearAll:function () {
           this.keyValue = '0';
+        },
+        // 跳转到备注
+        goRemarks:function () {
+          this.$router.push({
+            path:"/log/addLogRemarks",
+            params:{
+
+            }
+          });
+        }
+      },
+      mounted:function () {
+        if(this.$route.params.remarks){
+          this.remarks = this.$route.params.remarks;
         }
       }
     }
@@ -409,4 +427,5 @@
       }
     }
   }
+
 </style>
