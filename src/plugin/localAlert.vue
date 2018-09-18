@@ -7,9 +7,9 @@
         <img src="../assets/img/remind.svg" alt="" class="remind">
         <div class="line"></div>
       </div>
-      <p class="text">{{message}}</p>
+      <p class="text noSelect">{{message}}</p>
       <div class="cutOff"></div>
-      <div class="confirm" @click="off()">
+      <div class="confirm noSelect" @click="off()">
         确定
       </div>
     </div>
@@ -64,7 +64,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    z-index: 1000;
+    z-index: 2000;
   }
 
   .messageBox {
@@ -72,7 +72,7 @@
     width: 5rem;
     background-color: #fff;
     position: absolute;
-    z-index: 1001;
+    z-index: 2001;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -124,4 +124,13 @@
     line-height: 0.89rem;
     font-size: 0.36rem;
   }
+
+  .noSelect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
 </style>

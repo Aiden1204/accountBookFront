@@ -6,8 +6,8 @@
     </div>
     <div class="title">
       <div>
-        <img src="@/assets/img/example.svg" alt="" class="">
-        <span class="noSelect">一般</span>
+        <img :src="imgUrl" alt="" class="">
+        <span class="noSelect">{{title}}</span>
       </div>
       <span class="noSelect number">0.00</span>
     </div>
@@ -21,7 +21,10 @@
       name: "addLogRemarks",
       data(){
         return {
-          remarks:""
+          remarks:"", //备注
+          categoryIndex:-1, //上个页面所选的index
+          imgUrl:"", //所选类别图片
+          title:"" //所选类别标题
         }
       },
       methods:{
@@ -31,14 +34,21 @@
         },
         // 完成按钮
         goComplete:function () {
-          console.log(this.remarks);
           this.$router.push({
-            path:"/log/addLog",
+            name:"addLog",
             params:{
               remarks:this.remarks
             }
           });
         }
+      },
+      mounted:function () {
+        if(this.$route.params.remarks !== ''){
+          this.remarks = this.$route.params.remarks;
+        }
+        this.categoryIndex = this.$route.params.categoryIndex;
+        this.imgUrl = this.$route.params.imgUrl;
+        this.title = this.$route.params.title;
       }
     }
 </script>

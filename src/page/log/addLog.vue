@@ -110,6 +110,7 @@
           categoryIndex:-1, //当前页面选择的支出类别
           keyValue:"0", //每次数字键盘键入的值
           remarks:"添加备注信息", //备注栏的内容
+          reload:false, //判断是否需要发接口获取类别
           // 后台返回的支出类别
           categoryList:[
             {
@@ -203,10 +204,20 @@
         },
         // 跳转到备注
         goRemarks:function () {
+          if(this.categoryIndex === -1){
+            this.$alert.on('请选择类别');
+            return;
+          }
+          if(this.remarks === '添加备注信息'){
+            this.remarks = '';
+          }
           this.$router.push({
-            path:"/log/addLogRemarks",
+            name:"addLogRemarks",
             params:{
-
+              remarks:this.remarks, //备注
+              categoryIndex:this.categoryIndex, //选项的index
+              imgUrl:this.categoryList[this.categoryIndex].imgUrl, //所选类别图片
+              title:this.categoryList[this.categoryIndex].title //所选类别标题
             }
           });
         }
@@ -215,6 +226,13 @@
         if(this.$route.params.remarks){
           this.remarks = this.$route.params.remarks;
         }
+      },
+      // 判断跳转到这个页面的路由
+      beforeRouteEnter:function(to, from, next) {
+        console.log(to);
+        console.log(from);
+        console.log(next);
+        next();
       }
     }
 </script>
@@ -232,7 +250,7 @@
     background: linear-gradient(to right, #fd8a65 , #fd695e);
     position: absolute;
     top: 0;
-    z-index: 999;
+    z-index: 900;
   }
 
   .topTopic {
