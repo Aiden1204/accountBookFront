@@ -158,15 +158,18 @@
         changeStatus:function (status) {
           this.status = status;
         },
-        // 返回上一页
+        // 取消按钮
         goBack:function () {
-          this.$router.go(-1);
+          // 根据进入的页面，原路返回
+          this.$router.push('/mainPage/' + this.$store.state.routerParama);
         },
+
         // 选择支出类别
         chooseCategory:function (index) {
           this.categoryIndex = index;
           console.log(index);
         },
+
         // 点击数字键盘
         clickKey:function (keyValue) {
           this.keyValue += keyValue;
@@ -191,6 +194,7 @@
           }
           console.log(this.keyValue);
         },
+
         // 数字键盘回退键
         backKey:function () {
           this.keyValue = this.keyValue.slice(0,-1);
@@ -198,10 +202,12 @@
             this.keyValue = '0';
           }
         },
+
         // 数字键盘清空
         clearAll:function () {
           this.keyValue = '0';
         },
+
         // 跳转到备注
         goRemarks:function () {
           if(this.categoryIndex === -1){
@@ -216,8 +222,7 @@
             params:{
               remarks:this.remarks, //备注
               categoryIndex:this.categoryIndex, //选项的index
-              imgUrl:this.categoryList[this.categoryIndex].imgUrl, //所选类别图片
-              title:this.categoryList[this.categoryIndex].title //所选类别标题
+              categoryList:this.categoryList //类别列表
             }
           });
         }
@@ -226,13 +231,25 @@
         if(this.$route.params.remarks){
           this.remarks = this.$route.params.remarks;
         }
+        // console.log("mounted reload",this.reload);
       },
       // 判断跳转到这个页面的路由
       beforeRouteEnter:function(to, from, next) {
         console.log(to);
         console.log(from);
         console.log(next);
-        next();
+        next(vm => {
+          if(from.name === "addLogRemarks"){
+            vm.reload = false;
+            vm.categoryIndex = vm.$route.params.categoryIndex;
+            vm.categoryList= vm.$route.params.categoryList;
+            console.log("不发请求");
+          } else {
+            vm.reload = true;
+            console.log("发接口请求类别");
+          }
+        });
+
       }
     }
 </script>

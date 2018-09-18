@@ -50,6 +50,11 @@
       methods:{
         // 底部按钮跳转方法
         shiftPage:function (text) {
+          // 用vuex记录入口
+          this.$store.commit('changeRouterParama',{
+              text:text
+          });
+          // 跳转到对应页面
           this.$router.push('/mainPage/' + text);
         },
         // 增加记录

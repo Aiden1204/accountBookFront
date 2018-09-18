@@ -6,8 +6,8 @@
     </div>
     <div class="title">
       <div>
-        <img :src="imgUrl" alt="" class="">
-        <span class="noSelect">{{title}}</span>
+        <img :src="categoryList[categoryIndex].imgUrl" alt="" class="">
+        <span class="noSelect">{{categoryList[categoryIndex].title}}</span>
       </div>
       <span class="noSelect number">0.00</span>
     </div>
@@ -22,33 +22,41 @@
       data(){
         return {
           remarks:"", //备注
-          categoryIndex:-1, //上个页面所选的index
-          imgUrl:"", //所选类别图片
-          title:"" //所选类别标题
+          categoryIndex:0, //上个页面所选的index
+          categoryList:[] //类别列表
         }
       },
       methods:{
         // 取消按钮
         goBack:function () {
-          this.$router.go(-1);
+          this.$router.push({
+            name:"addLog",
+            params:{
+              categoryIndex:this.categoryIndex,
+              categoryList:this.categoryList
+            }
+          });
         },
         // 完成按钮
         goComplete:function () {
           this.$router.push({
             name:"addLog",
             params:{
-              remarks:this.remarks
+              remarks:this.remarks,
+              categoryIndex:this.categoryIndex,
+              categoryList:this.categoryList
             }
           });
         }
       },
-      mounted:function () {
-        if(this.$route.params.remarks !== ''){
-          this.remarks = this.$route.params.remarks;
-        }
+      beforeMount:function(){
+        // 上个页面传来的参数
+        this.remarks = this.$route.params.remarks;
         this.categoryIndex = this.$route.params.categoryIndex;
-        this.imgUrl = this.$route.params.imgUrl;
-        this.title = this.$route.params.title;
+        this.categoryList = this.$route.params.categoryList;
+      },
+      mounted:function () {
+
       }
     }
 </script>
