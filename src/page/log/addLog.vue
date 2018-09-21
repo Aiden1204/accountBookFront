@@ -19,10 +19,11 @@
         <div class="topicUnder" :class="[textAcive?'moveLeft':'moveRight']"></div>
       </div>
       <!--类别选择-->
-      <div class="category">
+      <!--支出类别-->
+      <div class="category" v-if="textAcive">
         <h2>类别</h2>
         <div class="categoryContent">
-          <div class="categoryItem" v-for="(item,index) in categoryList" @click="chooseCategory(index)">
+          <div class="categoryItem" v-for="(item,index) in expensesList" @click="chooseCategory(index)">
             <div class="imgBox">
               <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==categoryIndex}">
             </div>
@@ -30,6 +31,18 @@
           </div>
         </div>
       </div>
+      <!--收入类别-->
+      <!--<div class="category" v-if="!textAcive">-->
+        <!--<h2>类别2</h2>-->
+        <!--<div class="categoryContent">-->
+          <!--<div class="categoryItem" v-for="(item,index) in expensesList" @click="chooseCategory(index)">-->
+            <!--<div class="imgBox">-->
+              <!--<img :src="item.imgUrl" alt="" :class="{choiceCircle:index==categoryIndex}">-->
+            <!--</div>-->
+            <!--<h3 :class="{choiceText:index==categoryIndex}">{{item.title}}</h3>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
       <!--底部键盘部分-->
       <div class="bottom">
         <p class="remarks" @click="goRemarks()">{{remarks}}</p>
@@ -112,7 +125,7 @@
           remarks:"添加备注信息", //备注栏的内容
           reload:false, //判断是否需要发接口获取类别
           // 后台返回的支出类别
-          categoryList:[
+          expensesList:[
             {
               imgUrl:require("@/assets/img/example.svg"),
               title:"娱乐"
@@ -222,7 +235,7 @@
             params:{
               remarks:this.remarks, //备注
               categoryIndex:this.categoryIndex, //选项的index
-              categoryList:this.categoryList //类别列表
+              expensesList:this.expensesList //类别列表
             }
           });
         }
@@ -235,14 +248,14 @@
       },
       // 判断跳转到这个页面的路由
       beforeRouteEnter:function(to, from, next) {
-        console.log(to);
-        console.log(from);
-        console.log(next);
+        // console.log(to);
+        // console.log(from);
+        // console.log(next);
         next(vm => {
           if(from.name === "addLogRemarks"){
             vm.reload = false;
             vm.categoryIndex = vm.$route.params.categoryIndex;
-            vm.categoryList= vm.$route.params.categoryList;
+            vm.expensesList= vm.$route.params.expensesList;
             console.log("不发请求");
           } else {
             vm.reload = true;

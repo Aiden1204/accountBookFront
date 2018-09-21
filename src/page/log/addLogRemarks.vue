@@ -6,8 +6,8 @@
     </div>
     <div class="title">
       <div>
-        <img :src="categoryList[categoryIndex].imgUrl" alt="" class="">
-        <span class="noSelect">{{categoryList[categoryIndex].title}}</span>
+        <img :src="expensesList[categoryIndex].imgUrl" alt="" class="">
+        <span class="noSelect">{{expensesList[categoryIndex].title}}</span>
       </div>
       <span class="noSelect number">0.00</span>
     </div>
@@ -23,7 +23,7 @@
         return {
           remarks:"", //备注
           categoryIndex:0, //上个页面所选的index
-          categoryList:[] //类别列表
+          expensesList:[] //类别列表
         }
       },
       methods:{
@@ -33,7 +33,7 @@
             name:"addLog",
             params:{
               categoryIndex:this.categoryIndex,
-              categoryList:this.categoryList
+              expensesList:this.expensesList
             }
           });
         },
@@ -44,7 +44,7 @@
             params:{
               remarks:this.remarks,
               categoryIndex:this.categoryIndex,
-              categoryList:this.categoryList
+              expensesList:this.expensesList
             }
           });
         }
@@ -53,7 +53,7 @@
         // 上个页面传来的参数
         this.remarks = this.$route.params.remarks;
         this.categoryIndex = this.$route.params.categoryIndex;
-        this.categoryList = this.$route.params.categoryList;
+        this.expensesList = this.$route.params.expensesList;
       },
       mounted:function () {
 

@@ -1,6 +1,11 @@
 import axios from 'axios'
 import _this from '../main.js'
 
+
+
+axios.defaults.crossDomain = true;
+axios.defaults.withCredentials  = true;
+
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
