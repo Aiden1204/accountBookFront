@@ -102,7 +102,7 @@
               <img src="@/assets/img/back.svg" alt="">
             </div>
             <!--确定按钮-->
-            <div class="keyItem nbr sure">
+            <div class="keyItem nbr sure" @click="makeSure()">
               <div>确定</div>
             </div>
           </div>
@@ -122,7 +122,7 @@
           status:"支出", //提交的是“支出”或“收入”
           expensiveIndex:-1, //当前页面选择的支出类别
           incomeIndex:-1, //当前页面选择的收入类别
-          keyValue:"0", //每次数字键盘键入的值
+          keyValue:"0", //数字键盘的值
           remarks:"添加备注信息", //备注栏的内容
           reload:false, //判断是否需要发接口获取类别
           // 后台返回的支出类别
@@ -262,6 +262,46 @@
               incomeList:this.incomeList //收入类别列表
             }
           });
+        },
+
+        // 确认按钮
+        makeSure:function () {
+          console.log("makeSure");
+          // 收入或支出类别都未选择时进行提示
+          if(this.expensiveIndex === -1 && this.incomeIndex === -1){
+            this.$alert.on('请选择类别');
+            return;
+          }
+          // 提交开始
+          let self = this;
+          let categoryName = "";
+          if(this.status === '支出'){
+            categoryName = self.expensesList[self.expensiveIndex].title;
+          } else if(this.status === '收入'){
+            categoryName = self.incomeList[self.incomeIndex].title;
+          }
+          let remarks = '';
+          if(self.remarks === '添加备注信息'){
+            remarks = '';
+          } else {
+            remarks = self.remarks;
+          }
+          this.$cAxios.post(self.$constantIP.submitLog, {
+            params:{
+              category:self.status, //收入or支出
+              categoryName:categoryName, //类别名字
+              money:self.keyValue, //金额
+              remarks:remarks //备注
+            }
+          })
+            .then(function (response) {
+              self.$waitting.off();
+              if(response.data.returnCode === '000000'){
+                self.$alert.on('添加成功',() => {
+                  // self.$router.push('/account/login');
+                });
+              }
+            })
         }
       },
       mounted:function () {

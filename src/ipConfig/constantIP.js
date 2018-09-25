@@ -4,5 +4,6 @@
 let sendIP = 'http://172.20.10.5:3000';  //笔记本本机ip
 module.exports = {
   register: sendIP + '/users/register',
-  login: sendIP + '/users/login'
+  login: sendIP + '/users/login',
+  submitLog: sendIP + '/users/submitLog'
 }

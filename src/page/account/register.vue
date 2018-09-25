@@ -114,10 +114,6 @@
                 });
               }
             })
-            .catch(function (error) {
-              self.$waitting.off();
-              self.$alert.on('网络通讯异常，请稍后再试');
-            });
         }
       },
       // 返回登录
