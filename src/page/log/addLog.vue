@@ -451,6 +451,9 @@
     .remarks {
       color: #b6b6b6;
       padding: 0.1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .money {
       display: flex;
