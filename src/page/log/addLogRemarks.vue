@@ -6,8 +6,8 @@
     </div>
     <div class="title">
       <div>
-        <img :src="expensesList[categoryIndex].imgUrl" alt="" class="">
-        <span class="noSelect">{{expensesList[categoryIndex].title}}</span>
+        <img :src="list[index].imgUrl" alt="" class="">
+        <span class="noSelect">{{list[index].title}}</span>
       </div>
       <span class="noSelect number">0.00</span>
     </div>
@@ -22,8 +22,13 @@
       data(){
         return {
           remarks:"", //备注
-          categoryIndex:0, //上个页面所选的index
-          expensesList:[] //类别列表
+          index:0, //上个页面所选的index
+          list:[], //类别列表
+          status:"", //收入or支出
+          expensiveIndex:-1, //支出选项的index
+          incomeIndex:-1, //收入选项的index
+          expensesList:[], //支出类别列表
+          incomeList:[] //收入类别列表
         }
       },
       methods:{
@@ -32,8 +37,11 @@
           this.$router.push({
             name:"addLog",
             params:{
-              categoryIndex:this.categoryIndex,
-              expensesList:this.expensesList
+              status:this.status, //收入or支出
+              expensiveIndex:this.expensiveIndex, //支出选项的index
+              incomeIndex:this.incomeIndex, //收入选项的index
+              expensesList:this.expensesList, //支出类别列表
+              incomeList:this.incomeList //收入类别列表
             }
           });
         },
@@ -43,17 +51,30 @@
             name:"addLog",
             params:{
               remarks:this.remarks,
-              categoryIndex:this.categoryIndex,
-              expensesList:this.expensesList
+              status:this.status, //收入or支出
+              expensiveIndex:this.expensiveIndex, //支出选项的index
+              incomeIndex:this.incomeIndex, //收入选项的index
+              expensesList:this.expensesList, //支出类别列表
+              incomeList:this.incomeList //收入类别列表
             }
           });
         }
       },
       beforeMount:function(){
         // 上个页面传来的参数
+        if(this.$route.params.status === '支出'){
+          this.index = this.$route.params.expensiveIndex;
+          this.list = this.$route.params.expensesList;
+        } else if(this.$route.params.status === '收入'){
+          this.index = this.$route.params.incomeIndex;
+          this.list = this.$route.params.incomeList;
+        }
         this.remarks = this.$route.params.remarks;
-        this.categoryIndex = this.$route.params.categoryIndex;
-        this.expensesList = this.$route.params.expensesList;
+        this.status = this.$route.params.status; //收入or支出
+        this.expensiveIndex = this.$route.params.expensiveIndex; //支出选项的index
+        this.incomeIndex = this.$route.params.incomeIndex; //收入选项的index
+        this.expensesList = this.$route.params.expensesList;//支出类别列表
+        this.incomeList = this.$route.params.incomeList; //收入类别列表
       },
       mounted:function () {
 

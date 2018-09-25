@@ -25,24 +25,24 @@
         <div class="categoryContent">
           <div class="categoryItem" v-for="(item,index) in expensesList" @click="chooseCategory(index)">
             <div class="imgBox">
-              <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==categoryIndex}">
+              <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==expensiveIndex}">
             </div>
-            <h3 :class="{choiceText:index==categoryIndex}">{{item.title}}</h3>
+            <h3 :class="{choiceText:index==expensiveIndex}">{{item.title}}</h3>
           </div>
         </div>
       </div>
       <!--收入类别-->
-      <!--<div class="category" v-if="!textAcive">-->
-        <!--<h2>类别2</h2>-->
-        <!--<div class="categoryContent">-->
-          <!--<div class="categoryItem" v-for="(item,index) in expensesList" @click="chooseCategory(index)">-->
-            <!--<div class="imgBox">-->
-              <!--<img :src="item.imgUrl" alt="" :class="{choiceCircle:index==categoryIndex}">-->
-            <!--</div>-->
-            <!--<h3 :class="{choiceText:index==categoryIndex}">{{item.title}}</h3>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
+      <div class="category" v-if="!textAcive">
+        <h2>类别</h2>
+        <div class="categoryContent">
+          <div class="categoryItem" v-for="(item,index) in incomeList" @click="chooseCategory(index)">
+            <div class="imgBox">
+              <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==incomeIndex}">
+            </div>
+            <h3 :class="{choiceText:index==incomeIndex}">{{item.title}}</h3>
+          </div>
+        </div>
+      </div>
       <!--底部键盘部分-->
       <div class="bottom">
         <p class="remarks" @click="goRemarks()">{{remarks}}</p>
@@ -120,7 +120,8 @@
       data(){
         return{
           status:"支出", //提交的是“支出”或“收入”
-          categoryIndex:-1, //当前页面选择的支出类别
+          expensiveIndex:-1, //当前页面选择的支出类别
+          incomeIndex:-1, //当前页面选择的收入类别
           keyValue:"0", //每次数字键盘键入的值
           remarks:"添加备注信息", //备注栏的内容
           reload:false, //判断是否需要发接口获取类别
@@ -154,6 +155,21 @@
               imgUrl:require("@/assets/img/example.svg"),
               title:"其它"
             }
+          ],
+          // 后台返回的收入类别
+          incomeList:[
+            {
+              imgUrl:require("@/assets/img/example.svg"),
+              title:"工资"
+            },
+            {
+              imgUrl:require("@/assets/img/example.svg"),
+              title:"彩票"
+            },
+            {
+              imgUrl:require("@/assets/img/example.svg"),
+              title:"红包"
+            }
           ]
         }
       },
@@ -179,7 +195,11 @@
 
         // 选择支出类别
         chooseCategory:function (index) {
-          this.categoryIndex = index;
+          if(this.status === '支出'){
+            this.expensiveIndex = index;
+          } else if (this.status === '收入'){
+            this.incomeIndex = index;
+          }
           console.log(index);
         },
 
@@ -223,7 +243,8 @@
 
         // 跳转到备注
         goRemarks:function () {
-          if(this.categoryIndex === -1){
+          // 收入或支出类别都未选择时进行提示
+          if(this.expensiveIndex === -1 && this.incomeIndex === -1){
             this.$alert.on('请选择类别');
             return;
           }
@@ -234,17 +255,20 @@
             name:"addLogRemarks",
             params:{
               remarks:this.remarks, //备注
-              categoryIndex:this.categoryIndex, //选项的index
-              expensesList:this.expensesList //类别列表
+              status:this.status, //收入or支出
+              expensiveIndex:this.expensiveIndex, //支出选项的index
+              incomeIndex:this.incomeIndex, //收入选项的index
+              expensesList:this.expensesList, //支出类别列表
+              incomeList:this.incomeList //收入类别列表
             }
           });
         }
       },
       mounted:function () {
+        // 如果从备注页面跳转过来，记录备注内容
         if(this.$route.params.remarks){
           this.remarks = this.$route.params.remarks;
         }
-        // console.log("mounted reload",this.reload);
       },
       // 判断跳转到这个页面的路由
       beforeRouteEnter:function(to, from, next) {
@@ -254,8 +278,11 @@
         next(vm => {
           if(from.name === "addLogRemarks"){
             vm.reload = false;
-            vm.categoryIndex = vm.$route.params.categoryIndex;
-            vm.expensesList= vm.$route.params.expensesList;
+            vm.status = vm.$route.params.status; //收入or支出
+            vm.expensiveIndex = vm.$route.params.expensiveIndex; //支出选项的index
+            vm.incomeIndex = vm.$route.params.incomeIndex; //收入选项的index
+            vm.expensesList = vm.$route.params.expensesList;//支出类别列表
+            vm.incomeList = vm.$route.params.incomeList; //收入类别列表
             console.log("不发请求");
           } else {
             vm.reload = true;
