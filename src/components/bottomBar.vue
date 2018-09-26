@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="allBar">
     <div class="bottomBar">
       <div class="item" @click="shiftPage('wallet')">
         <img :src="walletIcon" alt="">
@@ -63,6 +63,11 @@
         }
       },
       mounted:function () {
+        // 阻止滑动穿透
+        document.querySelector(".allBar").addEventListener("touchmove", (event) => {
+          event.preventDefault();  //阻止默认行为
+          event.stopPropagation(); //阻止冒泡
+        }, false);
         // 根据当前url判断哪个按钮高亮
         switch (this.$route.path){
           case '/mainPage/wallet':

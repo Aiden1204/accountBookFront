@@ -31,7 +31,27 @@ Vue.prototype.$constantIP = constantIP;
 
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+// 金钱保留两位
+Vue.filter('moneyInitial', function (value) {
+  let f = parseFloat(value);
+  if (isNaN(f)) {
+    return false;
+  }
+  f = Math.round(f*100)/100;
+  let s = f.toString();
+  let rs = s.indexOf('.');
+  if (rs < 0) {
+    rs = s.length;
+    s += '.';
+  }
+  while (s.length <= rs + 2) {
+    s += '0';
+  }
+  return s;
+});
+
 
 /* eslint-disable no-new */
 let myApp = new Vue({
