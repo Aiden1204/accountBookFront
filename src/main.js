@@ -29,7 +29,9 @@ Vue.use(localAlert);
 import constantIP from './ipConfig/constantIP.js'
 Vue.prototype.$constantIP = constantIP;
 
-
+// 引入Vux日期插件
+import { DatetimePlugin } from 'vux'
+Vue.use(DatetimePlugin);
 
 Vue.config.productionTip = false;
 
@@ -52,6 +54,21 @@ Vue.filter('moneyInitial', function (value) {
   return s;
 });
 
+// 日期格式过滤器
+Vue.filter('dateInitial', function (value) {
+  value = value.split('-');
+  if(value[1].substr(0,1) === '0'){
+    value[1] = value[1].substr(1);
+  }
+  if(value[2].substr(0,1) === '0'){
+    value[2] = value[2].substr(1);
+  }
+  value.splice(1,0,'年');
+  value.splice(3,0,'月');
+  value.push('日');
+  value = value.join('');
+  return value;
+});
 
 /* eslint-disable no-new */
 let myApp = new Vue({

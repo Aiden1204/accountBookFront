@@ -8,9 +8,9 @@
     <div class="category">
       <!--时间选择-->
       <p class="time">
-        <span>2018年5月6日<i class="arrow"></i></span>
+        <span @click="showDatePicker(startTime,'start')">{{startTime | dateInitial}}<i class="arrow"></i></span>
         <span class="to">至</span>
-        <span>2018年10月1日<i class="arrow"></i></span>
+        <span @click="showDatePicker(endTime,'end')">{{endTime | dateInitial}}<i class="arrow"></i></span>
       </p>
       <!--收入支出展示-->
       <div class="money">
@@ -55,6 +55,8 @@
       name: "wallet",
       data(){
         return{
+          startTime:'', //开始时间
+          endTime:'', //结束时间
           dataList:[
             {
               imgUrl:require("@/assets/img/example.svg"),
@@ -103,6 +105,74 @@
       },
       components:{
         'buttomBar':buttomBar
+      },
+      methods:{
+        // 打开日期选择器
+        showDatePicker:function (date,flag) {
+          let self = this;
+          this.$vux.datetime.show({
+            value: date, //初始日期
+            onHide () {
+
+            },
+            onShow () {
+
+            },
+            // 点击确定时
+            onConfirm (){
+              // 用户选择的开始日期不能大于结束日期
+              let startTime = self.startTime;
+              let endTime = self.endTime;
+              if(flag === 'start'){
+                startTime = this.value;
+              } else if(flag === 'end'){
+                endTime = this.value;
+              }
+              // 将日期转化为number类型
+              let start = parseInt(startTime.split('-').join(''));
+              let end = parseInt(endTime.split('-').join(''));
+              // 比较两个日期的大小
+              if((start - end) > 0){
+                self.$alert.on('开始日期不能大于结束日期');
+              } else {
+                // 符合条件时更改页面上日期的值，开始发接口
+                if(flag === 'start'){
+                  self.startTime = this.value;
+                } else if(flag === 'end'){
+                  self.endTime = this.value;
+                }
+              }
+              console.log(start);
+              console.log(end);
+            }
+          })
+        },
+
+        // 检查月份和日期，不足两位前面补0
+        dateCheck:function (arr) {
+          if(arr[1].length < 2){
+            arr[1] = '0' + arr[1];
+          }
+          if(arr[2].length < 2){
+            arr[2] = '0' + arr[2];
+          }
+        }
+      },
+      beforeMount:function(){
+        // 初始查询时间区间为当前日期往前数30天
+        // 获取当前时间
+        let endDate = new Date();
+        // 往前推30天
+        let startDate = new Date(endDate.getTime() - 1000*60*60*24*30);
+        // 将时间对象转化成对应日期插件格式的字符串
+        startDate = startDate.toLocaleDateString().split('/');
+        endDate = endDate.toLocaleDateString().split('/');
+        this.dateCheck(startDate);
+        this.dateCheck(endDate);
+        startDate = startDate.join('-');
+        endDate = endDate.join('-');
+        this.startTime = startDate;
+        this.endTime = endDate;
       },
       mounted:function () {
         // 阻止滑动穿透

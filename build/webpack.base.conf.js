@@ -8,9 +8,11 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+// 引入vux
+const vuxLoader = require('vux-loader')
 
-
-module.exports = {
+// 原有的webpack配置
+const webpackConfig = {
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -84,3 +86,17 @@ module.exports = {
     child_process: 'empty'
   }
 }
+
+// 将vux与原有webpack配置混合
+module.exports = vuxLoader.merge(webpackConfig, {
+  plugins: [
+    {
+      name: 'vux-ui'
+    },
+    // vux公共样式修改
+    {
+      name: 'less-theme',
+      path: 'static/less/theme.less'
+    }
+  ]
+})
