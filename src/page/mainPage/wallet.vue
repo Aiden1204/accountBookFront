@@ -26,6 +26,10 @@
     </div>
     <!--记录列表-->
     <div class="listLine">
+      <div v-if="dataList.length < 1">
+        <p class="topicTop">所选时间段没有记录哦~</p>
+        <p class="topicBottom"><span @click="$router.push('/log/addLog')">立即添加</span></p>
+      </div>
       <div class="listItem" v-for="(item,index) in dataList">
         <div class="leftItem">
           <img :src="item.imgUrl" alt="">
@@ -57,24 +61,7 @@
         return{
           startTime:'', //开始时间
           endTime:'', //结束时间
-          dataList:[
-            {
-              imgUrl:require("@/assets/img/example.svg"),
-              categoryName:'彩票',
-              createTime:'2017年10月1日',
-              category:'收入',
-              money:'21.00',
-              remarks:'发财'
-            },
-            {
-              imgUrl:require("@/assets/img/example.svg"),
-              categoryName:'娱乐',
-              createTime:'2017年11月5日',
-              category:'支出',
-              money:'190.00',
-              remarks:'KTV'
-            }
-          ]
+          dataList:[] //记录列表
         }
       },
       computed:{
@@ -134,13 +121,16 @@
               // 比较两个日期的大小
               if((start - end) > 0){
                 self.$alert.on('开始日期不能大于结束日期');
+                return;
               } else {
-                // 符合条件时更改页面上日期的值，开始发接口
+                // 符合条件时更改页面上日期的值
                 if(flag === 'start'){
                   self.startTime = this.value;
                 } else if(flag === 'end'){
                   self.endTime = this.value;
                 }
+                // 开始发查询接口
+                self.queryLog();
               }
               console.log(start);
               console.log(end);
@@ -156,6 +146,24 @@
           if(arr[2].length < 2){
             arr[2] = '0' + arr[2];
           }
+        },
+
+        // 查询记录方法
+        queryLog:function () {
+          let self = this;
+          self.$waitting.on();
+          self.$cAxios.post(self.$constantIP.queryLog, {
+            params:{
+              startTime:self.startTime,
+              endTime:self.endTime
+            }
+          })
+            .then(function (response) {
+              self.$waitting.off();
+              if(response.data.returnCode === '000000'){
+                self.dataList = response.data.dataList;
+              }
+            })
         }
       },
       beforeMount:function(){
@@ -184,6 +192,9 @@
           event.preventDefault();  //阻止默认行为
           event.stopPropagation(); //阻止冒泡
         }, false);
+
+        // 页面初始化时查询近30天的记录
+        this.queryLog();
       }
     }
 </script>
@@ -192,7 +203,6 @@
   .all {
     position: relative;
     height: 10rem;
-    /*overflow: hidden;*/
 
     .topBg {
       height: 3rem;
@@ -276,6 +286,18 @@
     .listLine {
       padding-top: 3.7rem;
       padding-bottom: 1.7rem;
+      .topicTop {
+        padding-top: 0.5rem;
+        text-align: center;
+        font-size: 0.36rem;
+        color: #bfbfbf;
+      }
+      .topicBottom {
+        padding-top: 0.3rem;
+        text-align: center;
+        font-size: 0.30rem;
+        color: #f97564;
+      }
       .listItem {
         display: flex;
         justify-content: space-between;

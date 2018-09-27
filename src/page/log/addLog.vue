@@ -23,7 +23,7 @@
       <div class="category" v-if="textAcive">
         <h2>类别</h2>
         <div class="categoryContent">
-          <div class="categoryItem" v-for="(item,index) in expensesList" @click="chooseCategory(index)">
+          <div class="categoryItem" v-for="(item,index) in expensesList" @click="chooseCategory(index,item.imgUrl)">
             <div class="imgBox">
               <img :src="item.imgUrl" alt="" :class="{choiceCircle:index==expensiveIndex}">
             </div>
@@ -125,6 +125,8 @@
           keyValue:"0", //数字键盘的值
           remarks:"添加备注信息", //备注栏的内容
           reload:false, //判断是否需要发接口获取类别
+          expensiveImgUrl:'', //所选支出图片的地址
+          incomeImgUrl:'', //所选收入图片的地址
           // 后台返回的支出类别
           expensesList:[
             {
@@ -194,12 +196,15 @@
         },
 
         // 选择支出类别
-        chooseCategory:function (index) {
+        chooseCategory:function (index,imgUrl) {
           if(this.status === '支出'){
             this.expensiveIndex = index;
+            this.expensiveImgUrl = imgUrl;
           } else if (this.status === '收入'){
             this.incomeIndex = index;
+            this.incomeImgUrl = imgUrl;
           }
+          this.imgUrl = imgUrl;
           console.log(index);
         },
 
@@ -259,7 +264,9 @@
               expensiveIndex:this.expensiveIndex, //支出选项的index
               incomeIndex:this.incomeIndex, //收入选项的index
               expensesList:this.expensesList, //支出类别列表
-              incomeList:this.incomeList //收入类别列表
+              incomeList:this.incomeList, //收入类别列表
+              expensiveImgUrl:this.expensiveImgUrl, //所选支出图片的地址
+              incomeImgUrl:this.incomeImgUrl, //所选收入图片的地址
             }
           });
         },
@@ -275,10 +282,13 @@
           // 提交开始
           let self = this;
           let categoryName = "";
+          let imgUrl = "";
           if(this.status === '支出'){
             categoryName = self.expensesList[self.expensiveIndex].title;
+            imgUrl = self.expensesList[self.expensiveIndex].imgUrl;
           } else if(this.status === '收入'){
             categoryName = self.incomeList[self.incomeIndex].title;
+            imgUrl = self.incomeList[self.incomeIndex].imgUrl;
           }
           let remarks = '';
           if(self.remarks === '添加备注信息'){
@@ -291,17 +301,25 @@
               category:self.status, //收入or支出
               categoryName:categoryName, //类别名字
               money:self.keyValue, //金额
-              remarks:remarks //备注
+              remarks:remarks, //备注
+              imgUrl:imgUrl //图片地址
             }
           })
-            .then(function (response) {
-              self.$waitting.off();
-              if(response.data.returnCode === '000000'){
-                self.$alert.on('添加成功',() => {
-                  // self.$router.push('/account/login');
-                });
-              }
-            })
+          .then(function (response) {
+            self.$waitting.off();
+            if(response.data.returnCode === '000000'){
+              self.$alert.on('添加成功',() => {
+                status:"支出", //提交的是“支出”或“收入”
+                  self.expensiveIndex = -1; //当前页面选择的支出类别
+                  self.incomeIndex = -1; //当前页面选择的收入类别
+                  self.keyValue = "0"; //数字键盘的值
+                  self.remarks = "添加备注信息"; //备注栏的内容
+                  self.reload = false; //判断是否需要发接口获取类别
+                  self.expensiveImgUrl = ''; //所选支出图片的地址
+                  self.incomeImgUrl = ''; //所选收入图片的地址
+              });
+            }
+          })
         }
       },
       mounted:function () {
@@ -321,6 +339,8 @@
             vm.status = vm.$route.params.status; //收入or支出
             vm.expensiveIndex = vm.$route.params.expensiveIndex; //支出选项的index
             vm.incomeIndex = vm.$route.params.incomeIndex; //收入选项的index
+            vm.expensiveImgUrl = vm.$route.params.expensiveImgUrl; //所选支出图片的地址
+            vm.incomeImgUrl = vm.$route.params.incomeImgUrl; //所选收入图片的地址
             vm.expensesList = vm.$route.params.expensesList;//支出类别列表
             vm.incomeList = vm.$route.params.incomeList; //收入类别列表
             console.log("不发请求");

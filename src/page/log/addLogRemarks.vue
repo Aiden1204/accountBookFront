@@ -28,7 +28,9 @@
           expensiveIndex:-1, //支出选项的index
           incomeIndex:-1, //收入选项的index
           expensesList:[], //支出类别列表
-          incomeList:[] //收入类别列表
+          incomeList:[], //收入类别列表
+          expensiveImgUrl:'', //支出图片的地址
+          incomeImgUrl:'', //收入图片的地址
         }
       },
       methods:{
@@ -40,6 +42,8 @@
               status:this.status, //收入or支出
               expensiveIndex:this.expensiveIndex, //支出选项的index
               incomeIndex:this.incomeIndex, //收入选项的index
+              expensiveImgUrl:this.expensiveImgUrl, //支出图片的地址
+              incomeImgUrl:this.incomeImgUrl, //收入图片的地址
               expensesList:this.expensesList, //支出类别列表
               incomeList:this.incomeList //收入类别列表
             }
@@ -55,7 +59,9 @@
               expensiveIndex:this.expensiveIndex, //支出选项的index
               incomeIndex:this.incomeIndex, //收入选项的index
               expensesList:this.expensesList, //支出类别列表
-              incomeList:this.incomeList //收入类别列表
+              incomeList:this.incomeList, //收入类别列表
+              expensiveImgUrl:this.expensiveImgUrl, //支出图片的地址
+              incomeImgUrl:this.incomeImgUrl //收入图片的地址
             }
           });
         }
@@ -73,6 +79,8 @@
         this.status = this.$route.params.status; //收入or支出
         this.expensiveIndex = this.$route.params.expensiveIndex; //支出选项的index
         this.incomeIndex = this.$route.params.incomeIndex; //收入选项的index
+        this.expensiveImgUrl = this.$route.params.expensiveImgUrl; //支出图片的地址
+        this.incomeImgUrl = this.$route.params.incomeImgUrl; //收入图片的地址
         this.expensesList = this.$route.params.expensesList;//支出类别列表
         this.incomeList = this.$route.params.incomeList; //收入类别列表
       },

@@ -6,5 +6,6 @@ let sendIP = 'http://192.168.11.226:3000';  //笔记本本机ip
 module.exports = {
   register: sendIP + '/users/register',
   login: sendIP + '/users/login',
-  submitLog: sendIP + '/users/submitLog'
+  submitLog: sendIP + '/users/submitLog',
+  queryLog: sendIP + '/users/queryLog'
 }
