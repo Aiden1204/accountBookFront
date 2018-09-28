@@ -2,14 +2,18 @@
 
 > 使用Vue全家桶写的记账簿App前端部分
 
-> 各种插件详见package.json
-
 > vue_demo\src\page  页面
+
 > vue_demo\src\router  路由
+
 > vue_demo\src\components  控件
+
 > vue_demo\src\fun  自定义公共方法
+
 > vue_demo\src\ipConfig  后端接口地址
+
 > vue_demo\src\plugin  自定义插件
+
 > vue_demo\src\store  vux仓库
 
 > 新建页面：在page对应的文件夹中建.vue文件，在router中对应的路由文件中进行配置
