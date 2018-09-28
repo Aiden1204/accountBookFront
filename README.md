@@ -27,6 +27,10 @@
 
 ![Image text](https://raw.githubusercontent.com/Aiden1204/accountBookFront/master/displayImg/2.png)
 
+![Image text](https://raw.githubusercontent.com/Aiden1204/accountBookFront/master/displayImg/9.png)
+
+![Image text](https://raw.githubusercontent.com/Aiden1204/accountBookFront/master/displayImg/10.png)
+
 ![Image text](https://raw.githubusercontent.com/Aiden1204/accountBookFront/master/displayImg/3.png)
 
 ![Image text](https://raw.githubusercontent.com/Aiden1204/accountBookFront/master/displayImg/4.png)
@@ -37,4 +41,5 @@
 
 ![Image text](https://raw.githubusercontent.com/Aiden1204/accountBookFront/master/displayImg/7.png)
 
+![Image text](https://raw.githubusercontent.com/Aiden1204/accountBookFront/master/displayImg/8.png)
 
