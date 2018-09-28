@@ -1,37 +1,20 @@
 # my-demo
 
-> A Vue.js project
+> 使用Vue全家桶写的记账簿App前端部分
 
-## Build Setup
+> 各种插件详见package.json
 
-``` bash
-# install dependencies
-npm install
+> vue_demo\src\page  页面
+> vue_demo\src\router  路由
+> vue_demo\src\components  控件
+> vue_demo\src\fun  自定义公共方法
+> vue_demo\src\ipConfig  后端接口地址
+> vue_demo\src\plugin  自定义插件
+> vue_demo\src\store  vux仓库
 
-# serve with hot reload at localhost:8080
-npm run dev
+> 新建页面：在page对应的文件夹中建.vue文件，在router中对应的路由文件中进行配置
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-Vue后台
-使用vue-cli
-
-各种插件详见package.json
-
-vue_demo\src\page  页面
-vue_demo\src\router  路由
-vue_demo\src\components  控件
-
-新建页面：在page对应的文件夹中建.vue文件，在router中对应的路由文件中进行配置
-
-如果新建整个模块
-在route.js的数组中添加新的路由配置
+> 如果新建整个功能模块
+> 在route.js的数组中添加新的路由配置
 
 
