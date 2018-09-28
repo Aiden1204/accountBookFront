@@ -14,7 +14,7 @@
 
 > vue_demo\src\plugin  自定义插件
 
-> vue_demo\src\store  vux仓库
+> vue_demo\src\store  vuex仓库
 
 > 新建页面：在page对应的文件夹中建.vue文件，在router中对应的路由文件中进行配置
 
