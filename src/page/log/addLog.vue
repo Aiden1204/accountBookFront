@@ -267,6 +267,7 @@
               incomeList:this.incomeList, //收入类别列表
               expensiveImgUrl:this.expensiveImgUrl, //所选支出图片的地址
               incomeImgUrl:this.incomeImgUrl, //所选收入图片的地址
+              money:this.keyValue //金额
             }
           });
         },
@@ -343,6 +344,7 @@
             vm.incomeImgUrl = vm.$route.params.incomeImgUrl; //所选收入图片的地址
             vm.expensesList = vm.$route.params.expensesList;//支出类别列表
             vm.incomeList = vm.$route.params.incomeList; //收入类别列表
+            vm.keyValue = vm.$route.params.money; //金额
             console.log("不发请求");
           } else {
             vm.reload = true;

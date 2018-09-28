@@ -9,7 +9,7 @@
         <img :src="list[index].imgUrl" alt="" class="">
         <span class="noSelect">{{list[index].title}}</span>
       </div>
-      <span class="noSelect number">0.00</span>
+      <span class="noSelect number">{{money}}</span>
     </div>
     <div class="textInput">
       <textarea name="" v-model="remarks" placeholder="请写点什么..." maxlength="300"></textarea>
@@ -31,6 +31,7 @@
           incomeList:[], //收入类别列表
           expensiveImgUrl:'', //支出图片的地址
           incomeImgUrl:'', //收入图片的地址
+          money:'' //金额
         }
       },
       methods:{
@@ -45,7 +46,8 @@
               expensiveImgUrl:this.expensiveImgUrl, //支出图片的地址
               incomeImgUrl:this.incomeImgUrl, //收入图片的地址
               expensesList:this.expensesList, //支出类别列表
-              incomeList:this.incomeList //收入类别列表
+              incomeList:this.incomeList, //收入类别列表
+              money:this.money //金额
             }
           });
         },
@@ -61,7 +63,8 @@
               expensesList:this.expensesList, //支出类别列表
               incomeList:this.incomeList, //收入类别列表
               expensiveImgUrl:this.expensiveImgUrl, //支出图片的地址
-              incomeImgUrl:this.incomeImgUrl //收入图片的地址
+              incomeImgUrl:this.incomeImgUrl, //收入图片的地址
+              money:this.money //金额
             }
           });
         }
@@ -83,6 +86,7 @@
         this.incomeImgUrl = this.$route.params.incomeImgUrl; //收入图片的地址
         this.expensesList = this.$route.params.expensesList;//支出类别列表
         this.incomeList = this.$route.params.incomeList; //收入类别列表
+        this.money = this.$route.params.money; //金额
       },
       mounted:function () {
 
