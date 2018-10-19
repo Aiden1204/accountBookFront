@@ -177,26 +177,26 @@
       },
       computed:{
         // 判断状态是“支出”或“收入”
-        textAcive:function () {
+        textAcive() {
           return(this.status === "支出");
         },
-        clBtnShow:function () {
+        clBtnShow() {
           return(!(this.keyValue === '0'));
         }
       },
       methods:{
         // 切换支出和收入
-        changeStatus:function (status) {
+        changeStatus(status) {
           this.status = status;
         },
         // 取消按钮
-        goBack:function () {
+        goBack() {
           // 根据进入的页面，原路返回
           this.$router.push('/mainPage/' + this.$store.state.routerParama);
         },
 
         // 选择支出类别
-        chooseCategory:function (index,imgUrl) {
+        chooseCategory(index,imgUrl) {
           if(this.status === '支出'){
             this.expensiveIndex = index;
             this.expensiveImgUrl = imgUrl;
@@ -209,7 +209,7 @@
         },
 
         // 点击数字键盘
-        clickKey:function (keyValue) {
+        clickKey(keyValue) {
           this.keyValue += keyValue;
           // 键入时判断，头部为0且第二位不为小数点时，消除头部的0
           if(this.keyValue.length === 2 && this.keyValue.slice(0,1) === '0' && !(keyValue === '.')){
@@ -234,7 +234,7 @@
         },
 
         // 数字键盘回退键
-        backKey:function () {
+        backKey() {
           this.keyValue = this.keyValue.slice(0,-1);
           if(this.keyValue.length < 1){
             this.keyValue = '0';
@@ -242,12 +242,12 @@
         },
 
         // 数字键盘清空
-        clearAll:function () {
+        clearAll() {
           this.keyValue = '0';
         },
 
         // 跳转到备注
-        goRemarks:function () {
+        goRemarks() {
           // 收入或支出类别都未选择时进行提示
           if(this.expensiveIndex === -1 && this.incomeIndex === -1){
             this.$alert.on('请选择类别');
@@ -273,7 +273,7 @@
         },
 
         // 确认按钮
-        makeSure:function () {
+        makeSure() {
           console.log("makeSure");
           // 收入或支出类别都未选择时进行提示
           if(this.expensiveIndex === -1 && this.incomeIndex === -1){
@@ -323,14 +323,14 @@
           })
         }
       },
-      mounted:function () {
+      mounted() {
         // 如果从备注页面跳转过来，记录备注内容
         if(this.$route.params.remarks){
           this.remarks = this.$route.params.remarks;
         }
       },
       // 判断跳转到这个页面的路由
-      beforeRouteEnter:function(to, from, next) {
+      beforeRouteEnter(to, from, next) {
         // console.log(to);
         // console.log(from);
         // console.log(next);

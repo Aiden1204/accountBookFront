@@ -41,17 +41,17 @@
       },
       computed:{
         // 判断用户名是否输入
-        usernameIcon:function() {
+        usernameIcon() {
           return (this.username === "" || this.username === undefined || this.username === null);
         },
         // 判断密码是否输入
-        passwordIcon:function() {
+        passwordIcon() {
           return (this.password === "" || this.password === undefined || this.password === null);
         }
       },
       methods:{
         // 清空账号密码输入框的内容
-        clearInput:function (value) {
+        clearInput (value) {
           switch (value){
             case "username":
               this.username = "";
@@ -62,7 +62,7 @@
           }
         },
         // 点击登录
-        loginSubmit:function () {
+        loginSubmit () {
           let self = this;
           if(self.usernameIcon){
             self.$alert.on('请输入用户名');
@@ -86,11 +86,11 @@
           }
         },
         // 点击注册
-        goRegister:function () {
+        goRegister () {
           this.$router.push('/account/register');
         },
         // input聚焦时
-        onFocus:function (value) {
+        onFocus (value) {
           switch (value) {
             case 'usernameBottom':
               this.usernameBottom = true;
@@ -102,7 +102,7 @@
 
         },
         // input丢失焦点时
-        outFocus:function (value) {
+        outFocus (value) {
           switch (value) {
             case 'usernameBottom':
               this.usernameBottom = false;

@@ -36,7 +36,7 @@
       },
       methods:{
         // 取消按钮
-        goBack:function () {
+        goBack() {
           this.$router.push({
             name:"addLog",
             params:{
@@ -52,7 +52,7 @@
           });
         },
         // 完成按钮
-        goComplete:function () {
+        goComplete() {
           this.$router.push({
             name:"addLog",
             params:{
@@ -69,7 +69,7 @@
           });
         }
       },
-      beforeMount:function(){
+      beforeMount(){
         // 上个页面传来的参数
         if(this.$route.params.status === '支出'){
           this.index = this.$route.params.expensiveIndex;
@@ -88,7 +88,7 @@
         this.incomeList = this.$route.params.incomeList; //收入类别列表
         this.money = this.$route.params.money; //金额
       },
-      mounted:function () {
+      mounted() {
 
       }
     }

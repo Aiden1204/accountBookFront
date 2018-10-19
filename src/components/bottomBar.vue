@@ -49,7 +49,7 @@
       },
       methods:{
         // 底部按钮跳转方法
-        shiftPage:function (text) {
+        shiftPage (text) {
           // 用vuex记录入口
           this.$store.commit('changeRouterParama',{
               text:text
@@ -58,11 +58,11 @@
           this.$router.push('/mainPage/' + text);
         },
         // 增加记录
-        toAddLog:function () {
+        toAddLog () {
           this.$router.push('/log/addLog');
         }
       },
-      mounted:function () {
+      mounted () {
         // 阻止滑动穿透
         document.querySelector(".allBar").addEventListener("touchmove", (event) => {
           event.preventDefault();  //阻止默认行为

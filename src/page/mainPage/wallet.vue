@@ -67,7 +67,7 @@
       computed:{
         // 选择日期区间内的收入总额
         inputMoney:{
-          get: function () {
+          get() {
             let sum = 0;
             for(let x of this.dataList){
               if(x.category === '收入'){
@@ -79,7 +79,7 @@
         },
         // 选择日期区间内的支出总额
         outputMoney:{
-          get: function () {
+          get() {
             let sum = 0;
             for(let x of this.dataList){
               if(x.category === '支出'){
@@ -95,7 +95,7 @@
       },
       methods:{
         // 打开日期选择器
-        showDatePicker:function (date,flag) {
+        showDatePicker(date,flag) {
           let self = this;
           this.$vux.datetime.show({
             value: date, //初始日期
@@ -139,7 +139,7 @@
         },
 
         // 检查月份和日期，不足两位前面补0
-        dateCheck:function (arr) {
+        dateCheck(arr) {
           if(arr[1].length < 2){
             arr[1] = '0' + arr[1];
           }
@@ -149,7 +149,7 @@
         },
 
         // 查询记录方法
-        queryLog:function () {
+        queryLog() {
           let self = this;
           self.$waitting.on();
           self.$cAxios.post(self.$constantIP.queryLog, {
@@ -166,7 +166,7 @@
             })
         }
       },
-      beforeMount:function(){
+      beforeMount(){
         // 初始查询时间区间为当前日期往前数30天
         // 获取当前时间
         let endDate = new Date();
@@ -182,7 +182,7 @@
         this.startTime = startDate;
         this.endTime = endDate;
       },
-      mounted:function () {
+      mounted() {
         // 阻止滑动穿透
         document.querySelector(".topBg").addEventListener("touchmove", (event) => {
           event.preventDefault();  //阻止默认行为

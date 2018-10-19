@@ -52,21 +52,21 @@
     },
     computed:{
       // 判断用户名是否输入
-      usernameIcon:function() {
+      usernameIcon() {
         return (this.username === "" || this.username === undefined || this.username === null);
       },
       // 判断密码是否输入
-      passwordIcon:function() {
+      passwordIcon() {
         return (this.password === "" || this.password === undefined || this.password === null);
       },
       // 判断重复密码是否输入
-      rePasswordIcon:function() {
+      rePasswordIcon() {
         return (this.rePassword === "" || this.rePassword === undefined || this.rePassword === null);
       }
     },
     methods:{
       // 清空输入框的内容
-      clearInput:function (value) {
+      clearInput(value) {
         switch (value){
           case "username":
             this.username = "";
@@ -80,7 +80,7 @@
         }
       },
       // 注册提交
-      registerSubmit:function () {
+      registerSubmit() {
         // 字段验证
         if(this.usernameIcon){
           this.$alert.on('请输入用户名');
@@ -117,11 +117,11 @@
         }
       },
       // 返回登录
-      goLogin:function () {
+      goLogin() {
         this.$router.push('/account/login');
       },
       // input聚焦时
-      onFocus:function (value) {
+      onFocus(value) {
         switch (value) {
           case 'usernameBottom':
             this.usernameBottom = true;
@@ -136,7 +136,7 @@
 
       },
       // input丢失焦点时
-      outFocus:function (value) {
+      outFocus(value) {
         switch (value) {
           case 'usernameBottom':
             this.usernameBottom = false;
