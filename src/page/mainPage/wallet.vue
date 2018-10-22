@@ -103,7 +103,11 @@
 
             },
             onShow () {
-
+              // 阻止控件确认条的滑动穿透
+              document.querySelector(".dp-header").addEventListener("touchmove", (event) => {
+                event.preventDefault();  //阻止默认行为
+                event.stopPropagation(); //阻止冒泡
+              }, false);
             },
             // 点击确定时
             onConfirm (){
