@@ -310,7 +310,7 @@
             self.$waitting.off();
             if(response.data.returnCode === '000000'){
               self.$alert.on('添加成功',() => {
-                status:"支出", //提交的是“支出”或“收入”
+                  status = "支出"; //提交的是“支出”或“收入”
                   self.expensiveIndex = -1; //当前页面选择的支出类别
                   self.incomeIndex = -1; //当前页面选择的收入类别
                   self.keyValue = "0"; //数字键盘的值

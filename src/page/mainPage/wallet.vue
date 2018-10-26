@@ -155,6 +155,7 @@
         // 查询记录方法
         queryLog() {
           let self = this;
+          console.log('查询记录');
           self.$waitting.on();
           self.$cAxios.post(self.$constantIP.queryLog, {
             params:{
