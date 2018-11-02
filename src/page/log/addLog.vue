@@ -359,7 +359,7 @@
 <style scoped lang="scss">
   .all{
     position: relative;
-    height: 10rem;
+    /*height: 10rem;*/
     overflow: hidden;
   }
 

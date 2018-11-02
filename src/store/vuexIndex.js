@@ -7,7 +7,8 @@ const store = new Vuex.Store({
   state: {
     localAlertShow: false, //控制alert框
     waittingShow:false, //控制waitting层
-    routerParama:"wallet" //控制返回到底部哪个页面
+    routerParama:"wallet", //控制返回到底部哪个页面
+    states: 'turn-left' //控制页面左右效果
   },
   mutations: {
     // 开启alert框

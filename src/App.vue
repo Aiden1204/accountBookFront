@@ -1,9 +1,7 @@
 <template>
   <div id="app" >
-    <transition name="slide-left">
-      <!--<keep-alive>-->
-        <router-view class="child-view"></router-view>
-      <!--</keep-alive>-->
+    <transition :name="$store.state.states">
+        <router-view class="childView"></router-view>
     </transition>
   </div>
 </template>
@@ -28,19 +26,25 @@
 </script>
 
 <style scoped lang="scss">
-  .child-view {
-    /*position: absolute;*/
-    /*width:100%;*/
-    transition: all .8s cubic-bezier(.55,0,.1,1);
+  .turn-left-enter {
+    transform: translate3d(-100%, 0, 0);
+    z-index: 9999;
   }
-  .slide-left-enter, .slide-right-leave-active {
-    opacity: 0;
-    -webkit-transform: translate(50px, 0);
-    transform: translate(50px, 0);
+  .turn-left-leave-to {
+    /* transform: translate3d(-20%, 0, 0); */
+    /*z-index: 999;*/
   }
-  .slide-left-leave-active, .slide-right-enter {
-    opacity: 0;
-    -webkit-transform: translate(-50px, 0);
-    transform: translate(-50px, 0);
+  .turn-left-enter-active{
+    transition: transform 2s ease;
+    /*z-index: 9999;*/
+  }
+  .turn-left-leave-active {
+    transition: transform 2s ease;
+    /*z-index: 999;*/
+  }
+
+  .childView {
+    height: 100%;
+    /*transition: transform 10s ease;*/
   }
 </style>

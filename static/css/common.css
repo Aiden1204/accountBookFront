@@ -11,6 +11,7 @@ html {overflow-y: scroll;}
 
 #app {
   font-size: 0.24rem;
+  height: 100%;
 }
 
 #app .fl36 {
@@ -23,4 +24,8 @@ html {overflow-y: scroll;}
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
+}
+
+html,body {
+  height: 100%;
 }
